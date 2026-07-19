@@ -1,0 +1,59 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;    /* Centrado horizontal */
+    align-items: center;        /* Centrado vertical */
+    height: 100vh;              /* Altura total de la pantalla */
+    margin: 0;
+
+}
+
+.login-contenedor {
+    display: flex;
+    flex-direction: column;     /* Apila los elementos verticalmente */
+    width: 300px;
+    padding: 25px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    background-color: #fff;
+    gap: 15px;
+}
+
+h2 {
+    align-items: center;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Aplicamos ancho completo a los inputs (usuario y contraseña) */
+input[type="text"], input[type="password"] {
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;                /* Asegura que ocupen todo el contenedor */
+    box-sizing: border-box;     /* Importante para que el padding no rompa el ancho */
+}
+
+/* Estilo para el botón */
+input[type="submit"] {
+    padding: 12px;
+    margin-top: 5px;
+    background-color: #7CC6FE;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
+    width: 80%;
+    align-self: center;
+}
+
+input[type="submit"]:hover {
+    background-color: #23C9FF;
+}
