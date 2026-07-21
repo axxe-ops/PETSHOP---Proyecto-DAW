@@ -32,7 +32,7 @@ namespace GUI
 
                 if (exito != false)
                 {
-                    Response.Redirect("MenuPrincipal.aspx");
+                    Response.Redirect("frmMenúPrincipal.aspx");
                 }
                 else
                 {

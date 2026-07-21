@@ -1,0 +1,149 @@
+﻿/* Estilos generales sencillos */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+header {
+    background-color: #2c3e50;
+    color: white;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+    header h1 {
+        margin: 0;
+        font-size: 22px;
+    }
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 30px auto;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+/* Grilla de productos */
+.grid-productos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.card-producto {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    width: 30%;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.badge {
+    display: inline-block;
+    padding: 4px 8px;
+    font-size: 12px;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.badge-salud {
+    background-color: #3498db;
+}
+
+.badge-juguete {
+    background-color: #e67e22;
+}
+
+.card-producto h3 {
+    margin: 0 0 10px 0;
+    color: #2c3e50;
+}
+
+.precio {
+    font-size: 18px;
+    font-weight: bold;
+    color: #27ae60;
+    margin-bottom: 5px;
+}
+
+.stock {
+    font-size: 13px;
+    color: #7f8c8d;
+    margin-bottom: 15px;
+}
+
+.input-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+    .input-group label {
+        font-size: 14px;
+    }
+
+    .input-group input {
+        width: 60px;
+        padding: 5px;
+        text-align: center;
+    }
+
+/* Botones clásicos */
+.btn {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-primary {
+    background-color: #2c3e50;
+    color: white;
+    width: 100%;
+}
+
+    .btn-primary:hover {
+        background-color: #34495e;
+    }
+
+.btn-success {
+    background-color: #27ae60;
+    color: white;
+}
+
+.btn-danger {
+    background-color: #c0392b;
+    color: white;
+    font-size: 12px;
+}
+
+.mensaje {
+    margin-bottom: 20px;
+    color: #c0392b;
+    font-weight: bold;
+}

@@ -26,8 +26,6 @@ namespace DAL
                 }
             }
         }
-
-
         public object EjecutarEscalar(string nombreStoredProcedure, List<SqlParameter> parametros = null)
         {
             using (SqlConnection con = new SqlConnection(connectionString))
@@ -42,7 +40,6 @@ namespace DAL
                 }
             }
         }
-
         public DataTable Leer(string nombreStoredProcedure, List<SqlParameter> parametros = null)
         {
             DataTable dt = new DataTable();
@@ -67,7 +64,6 @@ namespace DAL
             }
             return dt;
         }
-
         public SqlParameter CrearParametro(string nombre, string valor)
         {
             SqlParameter param = new SqlParameter(nombre, valor);

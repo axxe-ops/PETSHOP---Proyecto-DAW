@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    public class USUARIO : MAPPER<BE.USUARIO>
+    public class MP_USUARIO : MAPPER<BE.USUARIO>
     {
         public override void Eliminar(BE.USUARIO obj)
         {

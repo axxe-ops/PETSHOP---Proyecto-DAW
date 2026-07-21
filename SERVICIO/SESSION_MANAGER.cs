@@ -12,7 +12,8 @@ namespace SERVICIO
     public class SESSION_MANAGER
     {
         private static SESSION_MANAGER instancia;
-        
+        private BE.USUARIO usuarioLogueado;
+
         public SESSION_MANAGER() 
         {
         
@@ -22,7 +23,7 @@ namespace SERVICIO
         {
             if (instancia == null)
             {
-                return null;
+                instancia = new SESSION_MANAGER();
             }
             return instancia;
         }
@@ -32,12 +33,12 @@ namespace SERVICIO
             string passwordHasheada = SEGURIDAD.ENCRIPTADO.Hashear(usuario.Password);
             usuario.Password = passwordHasheada;
 
-            DAL.USUARIO mapperUsuario = new DAL.USUARIO();
-            BE.USUARIO usuarioLogueado = mapperUsuario.ValidarUsuario(usuario);
+            DAL.MP_USUARIO mapperUsuario = new DAL.MP_USUARIO();
+            BE.USUARIO usuarioValidado = mapperUsuario.ValidarUsuario(usuario);
 
-            if (usuarioLogueado != null)
+            if (usuarioValidado != null)
             {
-                HttpContext.Current.Session["Usuario"] = usuarioLogueado;
+                HttpContext.Current.Session["Usuario"] = usuarioValidado;
                 return true;
             }
 
@@ -46,14 +47,19 @@ namespace SERVICIO
 
         public void Logout()
         {
+            usuarioLogueado = null;
             HttpContext.Current.Session.Clear();
             HttpContext.Current.Session.Abandon();
-            instancia = null;
         }
 
         public USUARIO ObtenerUsuario()
         {
-            return (USUARIO)HttpContext.Current.Session["Usuario"];
+            // Si no está en memoria, intentamos rescatarlo de la sesión web
+            if (usuarioLogueado == null && HttpContext.Current.Session["Usuario"] != null)
+            {
+                usuarioLogueado = (BE.USUARIO)HttpContext.Current.Session["Usuario"];
+            }
+            return usuarioLogueado;
         }
 
     }

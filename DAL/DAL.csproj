@@ -42,7 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ACCESO.cs" />
-    <Compile Include="USUARIO.cs" />
+    <Compile Include="MP_PEDIDO.cs" />
+    <Compile Include="MP_PRODUCTO.cs" />
+    <Compile Include="MP_USUARIO.cs" />
     <Compile Include="MAPPER.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -51,6 +53,9 @@
       <Project>{e7a9c560-964a-4372-a4db-e911204a1aad}</Project>
       <Name>BE</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ScriptBD\ScriptPETSHOP.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

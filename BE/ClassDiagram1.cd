@@ -3,8 +3,43 @@
   <Class Name="BE.USUARIO" Collapsed="true">
     <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAACAAAAAgAAAAAAEAAAAAAAAAgAAAgA=</HashCode>
+      <HashCode>AAACAAAAAAAAAACAAAAAgAAAAAAAAAASAAAAEgAAAgA=</HashCode>
       <FileName>USUARIO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BE.PERMISO" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAEAAAAAAAAAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>PERMISO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BE.PRODUCTO">
+    <Position X="4.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACBAAAAAAAAACAAAAAgAIQAAACEAAAAAAAAQAAAgU=</HashCode>
+      <FileName>PRODUCTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BE.CARRITO">
+    <Position X="8.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAEAAAAAACAAAAAgAAAAAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CARRITO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BE.PEDIDO">
+    <Position X="10" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAACCEAAAQAACAEAAAiAAAAAgAAAAAAAAAAAAAAAAgg=</HashCode>
+      <FileName>PEDIDO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BE.ITEM_CARRITO">
+    <Position X="6.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAEAAABEAAAAQAAAACAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ITEM_CARRITO.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

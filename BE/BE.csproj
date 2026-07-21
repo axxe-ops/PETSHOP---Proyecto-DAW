@@ -41,7 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CARRITO.cs" />
+    <Compile Include="ITEM_CARRITO.cs" />
+    <Compile Include="PEDIDO.cs" />
     <Compile Include="PERMISO.cs" />
+    <Compile Include="PRODUCTO.cs" />
     <Compile Include="USUARIO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
