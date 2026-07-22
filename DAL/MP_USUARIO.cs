@@ -44,6 +44,8 @@ namespace DAL
                 usuario.Id = (int)dt.Rows[0]["Id"];
                 usuario.Nombre = dt.Rows[0]["Nombre"].ToString();
                 usuario.Permiso = dt.Rows[0]["Permiso"].ToString();
+                usuario.Email = dt.Rows[0]["Email"] != DBNull.Value ? dt.Rows[0]["Email"].ToString() : string.Empty;
+                usuario.Telefono = dt.Rows[0]["Telefono"] != DBNull.Value ? dt.Rows[0]["Telefono"].ToString() : string.Empty;
                 return usuario;
             }
             else

@@ -12,7 +12,28 @@
         
         <!-- Barra superior -->
         <header>
-            <h1>🐾 Petshop System</h1>
+            <div class="header-content">
+                <h1>🐾 Petshop</h1>
+                
+                <!-- MENÚ DE NAVEGACIÓN CON DESGLOSE (COMPOSITE) -->
+                <asp:Panel ID="pnlMenuAdmin" runat="server" CssClass="admin-menu-panel">
+                    <nav class="nav-menu">
+                        <ul class="menu-list">
+                            <li class="menu-item"><a href="Principal.aspx">🏠 Inicio</a></li>
+                            
+                            <li class="menu-item dropdown">
+                                <a href="javascript:void(0);" class="drop-btn">⚙️ Administración ▾</a>
+                                <div class="dropdown-content">
+                                    <asp:LinkButton ID="lnkGestionPedidos" runat="server" OnClick="btnIrGestionPedidos_Click">📦 Gestionar Pedidos</asp:LinkButton>
+                                    <asp:LinkButton ID="lnkNuevoProducto" runat="server" OnClick="btnIrNuevoProducto_Click">➕ Nuevo Producto</asp:LinkButton>
+                                    <asp:LinkButton ID="lnkGestionProductos" runat="server" OnClick="btnIrGestionProductos_Click">🏷️ Gestionar Productos y Precios</asp:LinkButton>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
+                </asp:Panel>
+            </div>
+
             <div class="user-info">
                 <span>Hola, <asp:Label ID="lblUsuarioLogueado" runat="server" Text="Usuario"></asp:Label></span>
                 <asp:Button ID="btnCerrarSesion" runat="server" Text="Salir" CssClass="btn btn-danger" OnClick="btnCerrarSesion_Click" />

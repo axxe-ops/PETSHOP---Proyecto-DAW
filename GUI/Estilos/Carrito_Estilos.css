@@ -15,10 +15,10 @@ header {
     align-items: center;
 }
 
-    header h1 {
-        margin: 0;
-        font-size: 22px;
-    }
+header h1 {
+    margin: 0;
+    font-size: 22px;
+}
 
 .container {
     width: 90%;
@@ -42,16 +42,16 @@ h2 {
     margin-bottom: 20px;
 }
 
-    .tabla-carrito th, .tabla-carrito td {
-        padding: 12px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-    }
+.tabla-carrito th, .tabla-carrito td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
 
-    .tabla-carrito th {
-        background-color: #f8f9fa;
-        color: #2c3e50;
-    }
+.tabla-carrito th {
+    background-color: #f8f9fa;
+    color: #2c3e50;
+}
 
 .total-container {
     text-align: right;

@@ -122,5 +122,28 @@ namespace GUI
             }
             btnVerCarrito.Text = "🛒 Ver Carrito (" + totalItems + ")";
         }
+
+        // ------------------------ BOTONES ------------------------
+        protected void btnIrGestionPedidos_Click(object sender, EventArgs e)
+        {
+            //Gestionar pedidos
+
+            Response.Redirect("frmGestionPedidos.aspx");
+
+        }
+
+        protected void btnIrNuevoProducto_Click(object sender, EventArgs e)
+        {
+            //Nuevo Producto
+
+            Response.Redirect("frmProducto.aspx");
+        }
+
+        protected void btnIrGestionProductos_Click(object sender, EventArgs e)
+        {
+            // Gestion Productos
+
+            Response.Redirect("frmGestionProductos.aspx");
+        }
     }
 }

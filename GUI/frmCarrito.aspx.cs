@@ -11,6 +11,7 @@ namespace GUI
     public partial class frmCarrito : System.Web.UI.Page
     {
         BLL.PEDIDO gestorPedido = new BLL.PEDIDO();
+        BLL.PRODUCTO gestorProducto = new BLL.PRODUCTO();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -59,6 +60,8 @@ namespace GUI
 
         protected void btnConfirmarCompra_Click(object sender, EventArgs e)
         {
+            //Confirmar Compra
+
             BE.CARRITO carrito = Session["Carrito"] as BE.CARRITO;
             BE.USUARIO usuarioActual = SESSION_MANAGER.ObtenerInstancia().ObtenerUsuario();
 
@@ -84,6 +87,14 @@ namespace GUI
                         itemPedido.Cantidad = itemCarrito.Cantidad;
                         itemPedido.Subtotal = itemCarrito.Subtotal;
                         nuevoPedido.Items.Add(itemPedido);
+
+                        
+                        int nuevoStock = itemCarrito.Producto.StockActual - itemCarrito.Cantidad;
+                        if (nuevoStock < 0) nuevoStock = 0; // Evitamos stocks negativos por seguridad
+
+                        //Actualizamos en la bd
+                        itemCarrito.Producto.StockActual = nuevoStock;
+                        gestorProducto.ActualizarProducto(itemCarrito.Producto);
                     }
 
                     nuevoPedido.MontoTotal = totalPedido;

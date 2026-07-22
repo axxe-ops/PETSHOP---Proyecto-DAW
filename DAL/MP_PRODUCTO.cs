@@ -43,7 +43,14 @@ namespace DAL
 
         public override void Modificar(BE.PRODUCTO obj)
         {
-            throw new NotImplementedException();
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            parametros.Add(new SqlParameter("@Id", obj.Id));
+            parametros.Add(new SqlParameter("@Nombre", obj.Nombre));
+            parametros.Add(new SqlParameter("@Tipo", obj.Tipo));
+            parametros.Add(new SqlParameter("@Precio", obj.Precio));
+            parametros.Add(new SqlParameter("@Stock", obj.StockActual)); 
+
+            acceso.Escribir("sp_ModificarProducto", parametros);
         }
 
         public BE.PRODUCTO ObtenerPorId(int idProducto)

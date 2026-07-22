@@ -36,7 +36,21 @@ namespace BE
 			set { permiso = value; }
 		}
 
+        private string email;
+        public string Email
+        {
+            get { return email; }
+            set { email = value; }
+        }
+
+        private string telefono;
+        public string Telefono
+        {
+            get { return telefono; }
+            set { telefono = value; }
+        }
 
 
-	}
+
+    }
 }
