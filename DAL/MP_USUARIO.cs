@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BE;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -15,19 +16,83 @@ namespace DAL
             throw new NotImplementedException();
         }
 
+        public void Eliminar(int idUsuario)
+        {
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            parametros.Add(new SqlParameter("@Id", idUsuario));
+
+            acceso.Escribir("sp_EliminarUsuario", parametros);
+        }
+
         public override void Insertar(BE.USUARIO obj)
         {
-            throw new NotImplementedException();
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            parametros.Add(new SqlParameter("@Nombre", obj.Nombre));
+            parametros.Add(new SqlParameter("@Password", obj.Password));
+            parametros.Add(new SqlParameter("@Permiso", obj.Permiso));
+            parametros.Add(new SqlParameter("@Email", obj.Email));
+            parametros.Add(new SqlParameter("@Telefono", obj.Telefono));
+
+            acceso.Escribir("sp_InsertarUsuario", parametros);
         }
 
         public override List<BE.USUARIO> Listar()
         {
-            throw new NotImplementedException();
+            List<BE.USUARIO> lista = new List<BE.USUARIO>();
+
+            DataTable tabla = acceso.Leer("sp_ListarUsuarios");
+
+            foreach (DataRow row in tabla.Rows)
+            {
+                BE.USUARIO usu = new BE.USUARIO();
+                usu.Id = Convert.ToInt32(row["Id"]);
+                usu.Nombre = row["Nombre"].ToString();
+                usu.Password = row["Password"].ToString();
+                usu.Permiso = row["Permiso"].ToString();
+                usu.Email = row["Email"].ToString();
+                usu.Telefono = row["Telefono"].ToString();
+
+                lista.Add(usu);
+            }
+
+            return lista;
         }
 
         public override void Modificar(BE.USUARIO obj)
         {
-            throw new NotImplementedException();
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            parametros.Add(new SqlParameter("@Id", obj.Id));
+            parametros.Add(new SqlParameter("@Nombre", obj.Nombre));
+            parametros.Add(new SqlParameter("@Password", obj.Password));
+            parametros.Add(new SqlParameter("@Permiso", obj.Permiso));
+            parametros.Add(new SqlParameter("@Email", obj.Email));
+            parametros.Add(new SqlParameter("@Telefono", obj.Telefono));
+
+            acceso.Escribir("sp_ModificarUsuario", parametros);
+        }
+
+        public USUARIO ObtenerPorId(int idUsuario)
+        {
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            parametros.Add(new SqlParameter("@Id", idUsuario));
+
+            DataTable tabla = acceso.Leer("sp_ObtenerUsuarioPorId", parametros);
+
+            if (tabla.Rows.Count > 0)
+            {
+                DataRow row = tabla.Rows[0];
+                BE.USUARIO usu = new BE.USUARIO();
+                usu.Id = Convert.ToInt32(row["Id"]);
+                usu.Nombre = row["Nombre"].ToString();
+                usu.Password = row["Password"].ToString();
+                usu.Permiso = row["Permiso"].ToString();
+                usu.Email = row["Email"].ToString();
+                usu.Telefono = row["Telefono"].ToString();
+
+                return usu;
+            }
+
+            return null;
         }
 
         public BE.USUARIO ValidarUsuario(BE.USUARIO usu)

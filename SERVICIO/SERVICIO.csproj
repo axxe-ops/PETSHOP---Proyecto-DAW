@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BITACORA_BLL.cs" />
     <Compile Include="SESSION_MANAGER.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

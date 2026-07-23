@@ -36,10 +36,19 @@ namespace SERVICIO
             DAL.MP_USUARIO mapperUsuario = new DAL.MP_USUARIO();
             BE.USUARIO usuarioValidado = mapperUsuario.ValidarUsuario(usuario);
 
+            SERVICIO.BITACORA_BLL gestorBitacora = new BITACORA_BLL();
+
             if (usuarioValidado != null)
             {
                 HttpContext.Current.Session["Usuario"] = usuarioValidado;
+
+                gestorBitacora.RegistrarBitacora("El usuario " + usuarioValidado.Nombre + " inició sesión correctamente.", 1);
+
                 return true;
+            }
+            else
+            {
+                gestorBitacora.RegistrarBitacora("Intento fallido de inicio de sesión con el usuario: " + usuario.Nombre, 3);
             }
 
             return false;
@@ -47,9 +56,13 @@ namespace SERVICIO
 
         public void Logout()
         {
+            SERVICIO.BITACORA_BLL gestorBitacora = new BITACORA_BLL();
+            gestorBitacora.RegistrarBitacora("El usuario: " + usuarioLogueado.Nombre + " cerró sesión correctamente.", 1);
+
             usuarioLogueado = null;
             HttpContext.Current.Session.Clear();
             HttpContext.Current.Session.Abandon();
+            
         }
 
         public USUARIO ObtenerUsuario()

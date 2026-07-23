@@ -34,18 +34,6 @@ namespace GUI
             rptProductos.DataSource = productos;
             rptProductos.DataBind(); // ¡Comando que "pinta" los datos en el HTML!
         }
-
-        protected void btnCerrarSesion_Click(object sender, EventArgs e)
-        {
-            SESSION_MANAGER.ObtenerInstancia().Logout();
-            Response.Redirect("frmLogin.aspx");
-        }
-
-        protected void btnVerCarrito_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("frmCarrito.aspx");
-        }
-
         protected void rptProductos_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
             // Verificamos si el comando que se disparó es "Agregar"
@@ -131,19 +119,39 @@ namespace GUI
             Response.Redirect("frmGestionPedidos.aspx");
 
         }
-
-        protected void btnIrNuevoProducto_Click(object sender, EventArgs e)
+        protected void btnIrGestionUsuarios_Click(object sender, EventArgs e)
         {
-            //Nuevo Producto
-
-            Response.Redirect("frmProducto.aspx");
+            // Gestionar Usuarios
+            Response.Redirect("frmGestionUsuarios.aspx");
         }
-
         protected void btnIrGestionProductos_Click(object sender, EventArgs e)
         {
             // Gestion Productos
 
             Response.Redirect("frmGestionProductos.aspx");
+        }
+        protected void btnIrBitacora_Click(object sender, EventArgs e)
+        {
+            //Bitacora
+
+            Response.Redirect("frmBitacora.aspx");
+
+        }
+
+
+        protected void btnCerrarSesion_Click(object sender, EventArgs e)
+        {
+            //Cerrar Sesion
+
+            SESSION_MANAGER.ObtenerInstancia().Logout();
+            Response.Redirect("frmLogin.aspx");
+        }
+
+        protected void btnVerCarrito_Click(object sender, EventArgs e)
+        {
+            //Ver Carrito
+
+            Response.Redirect("frmCarrito.aspx");
         }
     }
 }

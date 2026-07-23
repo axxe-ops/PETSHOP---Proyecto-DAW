@@ -17,7 +17,14 @@ namespace DAL
 
         public override void Insertar(BE.PRODUCTO obj)
         {
-            throw new NotImplementedException();
+            List<SqlParameter> parametros = new List<SqlParameter>();            
+            parametros.Add(new SqlParameter("@Nombre", obj.Nombre));
+            parametros.Add(new SqlParameter("@Tipo", obj.Tipo));
+            parametros.Add(new SqlParameter("@Precio", obj.Precio));
+            parametros.Add(new SqlParameter("@StockActual", obj.StockActual));
+            parametros.Add(new SqlParameter("@StockMinimo", obj.StockMinimo));
+
+            acceso.Escribir("sp_InsertarProducto", parametros);
         }
 
         public override List<BE.PRODUCTO> Listar()

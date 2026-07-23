@@ -1,0 +1,156 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+header {
+    background-color: #2c3e50;
+    color: white;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+    header h1 {
+        margin: 0;
+        font-size: 22px;
+    }
+
+.container {
+    width: 95%;
+    max-width: 1200px;
+    margin: 30px auto;
+    background: white;
+    padding: 25px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+}
+
+.header-acciones {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+    .header-acciones h2 {
+        margin: 0;
+        color: #2c3e50;
+    }
+
+.tabla-bitacora {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 15px;
+}
+
+    .tabla-bitacora th, .tabla-bitacora td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+        font-size: 13px;
+    }
+
+    .tabla-bitacora th {
+        background-color: #f8f9fa;
+        color: #2c3e50;
+    }
+
+.btn {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 12px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-volver {
+    background-color: #7f8c8d;
+    color: white;
+}
+
+.badge-criticidad {
+    padding: 3px 8px;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    font-size: 11px;
+}
+
+/* Azul - Info */
+.crit-1 {
+    background-color: #3498db;
+}
+/* Verde - Bajo */
+.crit-2 {
+    background-color: #2ecc71;
+}
+/* Amarillo - Medio */
+.crit-3 {
+    background-color: #f1c40f;
+    color: #333;
+}
+/* Naranja - Alto */
+.crit-4 {
+    background-color: #e67e22;
+}
+/* Rojo - Crítico */
+.crit-5 {
+    background-color: #c0392b;
+}
+
+
+
+.contenedor-tabla-scroll {
+    max-height: 450px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.panel-filtros {
+    display: flex;
+    gap: 15px;
+    align-items: flex-end;
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    border: 1px solid #e9ecef;
+}
+
+.filtro-grupo {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+    .filtro-grupo label {
+        font-size: 12px;
+        font-weight: bold;
+        color: #2c3e50;
+    }
+
+.input-control {
+    padding: 7px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+.btn-filtrar {
+    background-color: #3498db;
+    color: white;
+}
+
+.btn-limpiar {
+    background-color: #95a5a6;
+    color: white;
+}

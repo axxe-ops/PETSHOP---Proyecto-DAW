@@ -15,6 +15,11 @@ namespace BLL
             mapperProducto.Modificar(producto);
         }
 
+        public void InsertarProducto(BE.PRODUCTO producto)
+        {
+            mapperProducto.Insertar(producto);
+        }
+
         public List<BE.PRODUCTO> ListarProductos()
         {            
             return mapperProducto.Listar();

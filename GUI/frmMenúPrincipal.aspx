@@ -19,14 +19,15 @@
                 <asp:Panel ID="pnlMenuAdmin" runat="server" CssClass="admin-menu-panel">
                     <nav class="nav-menu">
                         <ul class="menu-list">
-                            <li class="menu-item"><a href="Principal.aspx">🏠 Inicio</a></li>
+                            <li class="menu-item"><a href="frmMenúPrincipal.aspx">Inicio</a></li>
                             
                             <li class="menu-item dropdown">
-                                <a href="javascript:void(0);" class="drop-btn">⚙️ Administración ▾</a>
+                                <a href="javascript:void(0);" class="drop-btn">Administración ▾</a>
                                 <div class="dropdown-content">
-                                    <asp:LinkButton ID="lnkGestionPedidos" runat="server" OnClick="btnIrGestionPedidos_Click">📦 Gestionar Pedidos</asp:LinkButton>
-                                    <asp:LinkButton ID="lnkNuevoProducto" runat="server" OnClick="btnIrNuevoProducto_Click">➕ Nuevo Producto</asp:LinkButton>
-                                    <asp:LinkButton ID="lnkGestionProductos" runat="server" OnClick="btnIrGestionProductos_Click">🏷️ Gestionar Productos y Precios</asp:LinkButton>
+                                    <asp:LinkButton ID="lnkGestionPedidos"      runat="server"  OnClick="btnIrGestionPedidos_Click">Gestionar Pedidos</asp:LinkButton>
+                                    <asp:LinkButton ID="lnkGestionProductos"    runat="server"  OnClick="btnIrGestionProductos_Click">Gestionar Productos</asp:LinkButton>
+                                    <asp:LinkButton ID="lnkGestionUsuarios"     runat="server"  OnClick="btnIrGestionUsuarios_Click">Gestionar Usuarios</asp:LinkButton>
+                                    <asp:LinkButton ID="lnkBitacora"            runat="server"  OnClick="btnIrBitacora_Click">Bitacora</asp:LinkButton>
                                 </div>
                             </li>
                         </ul>

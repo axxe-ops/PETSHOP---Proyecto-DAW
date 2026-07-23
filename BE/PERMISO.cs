@@ -8,9 +8,9 @@ namespace BE
 {
     public static class PERMISO
     {
-        public const string ADMIN = "admin";
-        public const string WEBMASTER = "webmaster";
-        public const string USUARIO = "usuario";
+        public const string ADMIN = "ADMIN";
+        public const string WEBMASTER = "WEBMASTER";
+        public const string USUARIO = "USUARIO";
 
     }
 }

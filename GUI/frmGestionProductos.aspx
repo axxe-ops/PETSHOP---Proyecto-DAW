@@ -23,7 +23,11 @@
             <div class="layout-abm">
                 <!-- Columna Izquierda: Tabla / Cuadrito de Productos -->
                 <div class="col-tabla">
-                    <h3>Listado de Productos Actuales</h3>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <h3 style="margin: 0;">Listado de Productos Actuales</h3>
+                        <asp:Button ID="btnModoNuevo" runat="server" Text="➕ Nuevo Producto" CssClass="btn btn-success" OnClick="btnModoNuevo_Click" />
+                    </div>
+
                     <asp:Label ID="lblAlertaStock" runat="server" CssClass="mensaje-alerta-global" Visible="false"></asp:Label>
                     <asp:GridView ID="gvProductos" runat="server" AutoGenerateColumns="False" CssClass="tabla-productos" 
                         OnRowCommand="gvProductos_RowCommand" OnRowDataBound="gvProductos_RowDataBound" DataKeyNames="Id">
@@ -43,11 +47,11 @@
                     </asp:GridView>
                 </div>
 
-                <!-- Columna Derecha: Formulario de Modificación (Fuera del cuadrito) -->
-                <div class="col-form">
-                    <h3>Modificar Producto</h3>
+                <!-- Columna Derecha: Formulario dinámico (Modificar / Nuevo) -->
+               <div class="col-form">
+                    <h3><asp:Label ID="lblTituloForm" runat="server" Text="Modificar Producto"></asp:Label></h3>
                     
-                    <!-- Campo oculto para guardar el ID del producto que se está editando -->
+                    <!-- Campo oculto para guardar el ID -->
                     <asp:HiddenField ID="hfIdProducto" runat="server" />
 
                     <div class="form-group">
@@ -56,8 +60,10 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Tipo (Ej: Salud, Juguete):</label>
-                        <asp:TextBox ID="txtTipo" runat="server"></asp:TextBox>
+                        <label>Tipo de Producto:</label>
+                        <!-- Cambiado a DropDownList con más opciones basadas en el Enum -->
+                        <asp:DropDownList ID="ddlTipo" runat="server" CssClass="form-control" style="width:100%; padding:8px; border:1px solid #ccc; border-radius:4px;">
+                        </asp:DropDownList>
                     </div>
 
                     <div class="form-group">
@@ -70,8 +76,14 @@
                         <asp:TextBox ID="txtStock" runat="server" TextMode="Number"></asp:TextBox>
                     </div>
 
-                    <asp:Button ID="btnGuardarCambios" runat="server" Text="💾 Guardar Cambios" CssClass="btn btn-guardar" OnClick="btnGuardarCambios_Click" Enabled="false" />
-                    <asp:Button ID="btnCancelarEdicion" runat="server" Text="❌ Cancelar" CssClass="btn btn-cancelar" OnClick="btnCancelarEdicion_Click" Visible="false" />
+                    <div class="form-group">
+                        <label>Stock Mínimo (Alerta):</label>
+                        <asp:TextBox ID="txtStockMinimo" runat="server" TextMode="Number"></asp:TextBox>
+                    </div>
+
+                    <asp:Button ID="btnGuardarCambios" runat="server" Text="Guardar Cambios" CssClass="btn btn-guardar" OnClick="btnGuardarCambios_Click" Visible="false" />
+                    <asp:Button ID="btnRegistrarNuevo" runat="server" Text="Registrar Nuevo" CssClass="btn btn-guardar" OnClick="btnRegistrarNuevo_Click" Visible="false" style="background-color: #27ae60;" />
+                    <asp:Button ID="btnCancelarEdicion" runat="server" Text="Cancelar" CssClass="btn btn-cancelar" OnClick="btnCancelarEdicion_Click" Visible="false" />
                 </div>
             </div>
         </div>

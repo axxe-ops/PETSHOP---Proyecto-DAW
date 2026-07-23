@@ -118,14 +118,18 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Estilos\Bitacora_Estilos.css" />
     <Content Include="Estilos\GestionProductos_Estilos.css" />
+    <Content Include="Estilos\GestionUsuarios_Estilos.css" />
     <Content Include="Estilos\Login_estilos.css" />
     <Content Include="Estilos\MenuPrincipal_Estilos.css" />
     <Content Include="Estilos\Carrito_Estilos.css" />
     <Content Include="Estilos\GestionPedidos_Estilos.css" />
+    <Content Include="frmBitacora.aspx" />
     <Content Include="frmCarrito.aspx" />
     <Content Include="frmGestionPedidos.aspx" />
     <Content Include="frmGestionProductos.aspx" />
+    <Content Include="frmGestionUsuarios.aspx" />
     <Content Include="frmLogin.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -208,6 +212,13 @@
     <Compile Include="Contact.aspx.designer.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
     </Compile>
+    <Compile Include="frmBitacora.aspx.cs">
+      <DependentUpon>frmBitacora.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="frmBitacora.aspx.designer.cs">
+      <DependentUpon>frmBitacora.aspx</DependentUpon>
+    </Compile>
     <Compile Include="frmCarrito.aspx.cs">
       <DependentUpon>frmCarrito.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -228,6 +239,13 @@
     </Compile>
     <Compile Include="frmGestionProductos.aspx.designer.cs">
       <DependentUpon>frmGestionProductos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="frmGestionUsuarios.aspx.cs">
+      <DependentUpon>frmGestionUsuarios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="frmGestionUsuarios.aspx.designer.cs">
+      <DependentUpon>frmGestionUsuarios.aspx</DependentUpon>
     </Compile>
     <Compile Include="frmLogin.aspx.cs">
       <DependentUpon>frmLogin.aspx</DependentUpon>
@@ -291,6 +309,10 @@
     <ProjectReference Include="..\BLL\BLL.csproj">
       <Project>{814cf1c8-baa1-4e8e-a1d3-ac70e98f0732}</Project>
       <Name>BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SEGURIDAD\SEGURIDAD.csproj">
+      <Project>{448f307e-d4ca-4122-9d8e-ab00a959a7e8}</Project>
+      <Name>SEGURIDAD</Name>
     </ProjectReference>
     <ProjectReference Include="..\SERVICIO\SERVICIO.csproj">
       <Project>{91701f75-83a3-4328-aacf-a5d8ea338922}</Project>

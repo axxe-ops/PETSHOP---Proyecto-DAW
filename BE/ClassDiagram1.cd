@@ -3,7 +3,7 @@
   <Class Name="BE.USUARIO" Collapsed="true">
     <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAACAAAAAgAAAAAAAAAASAAAAEgAAAgA=</HashCode>
+      <HashCode>AAACAAAAACAAAACgAAAAgAAAAAAAAAASAAAAEgAAAgI=</HashCode>
       <FileName>USUARIO.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -31,7 +31,7 @@
   <Class Name="BE.PEDIDO">
     <Position X="10" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QAACCEAAAQAACAEAAAiAAAAAgAAAAAAAAAAAAAAAAgg=</HashCode>
+      <HashCode>AAACCAAAAQAACBEAAAiQAAAAgAAAAAAAAAAAAAAAAgg=</HashCode>
       <FileName>PEDIDO.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -42,5 +42,12 @@
       <FileName>ITEM_CARRITO.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Enum Name="BE.TipoProducto">
+    <Position X="1.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAACBAAAAAAAAAAAAAAAAAUAAAAAAE=</HashCode>
+      <FileName>TipoProducto.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

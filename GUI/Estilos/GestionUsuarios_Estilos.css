@@ -15,10 +15,10 @@ header {
     align-items: center;
 }
 
-header h1 {
-    margin: 0;
-    font-size: 22px;
-}
+    header h1 {
+        margin: 0;
+        font-size: 22px;
+    }
 
 .container {
     width: 95%;
@@ -30,10 +30,18 @@ header h1 {
     border: 1px solid #ddd;
 }
 
-h2 {
-    margin-top: 0;
-    color: #2c3e50;
+/* Encabezado interno y contenedor de título superior */
+.header-acciones {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
+
+    .header-acciones h2 {
+        margin: 0;
+        color: #2c3e50;
+    }
 
 .layout-abm {
     display: flex;
@@ -56,42 +64,47 @@ h2 {
     height: fit-content;
 }
 
+    .col-form h3 {
+        margin-top: 0;
+        color: #2c3e50;
+    }
+
 .tabla-productos {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 15px;
 }
 
-.tabla-productos th, .tabla-productos td {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-    font-size: 13px;
-}
+    .tabla-productos th, .tabla-productos td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+        font-size: 13px;
+    }
 
-.tabla-productos th {
-    background-color: #f8f9fa;
-    color: #2c3e50;
-}
+    .tabla-productos th {
+        background-color: #f8f9fa;
+        color: #2c3e50;
+    }
 
 .form-group {
     margin-bottom: 15px;
 }
 
-.form-group label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-    font-size: 13px;
-}
+    .form-group label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+        font-size: 13px;
+    }
 
-.form-group input, .form-group select {
-    width: 100%;
-    padding: 8px;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
+    .form-group input, .form-group select {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
 
 .btn {
     padding: 8px 14px;
@@ -109,10 +122,24 @@ h2 {
     color: white;
 }
 
+.btn-eliminar {
+    background-color: #c0392b;
+    color: white;
+    margin-left: 5px;
+}
+
 .btn-guardar {
     background-color: #27ae60;
     color: white;
     width: 100%;
+    margin-top: 5px;
+}
+
+.btn-registrar {
+    background-color: #27ae60;
+    color: white;
+    width: 100%;
+    margin-top: 5px;
 }
 
 .btn-cancelar {
@@ -127,38 +154,13 @@ h2 {
     color: white;
 }
 
-.mensaje {
-    margin-bottom: 15px;
-    font-weight: bold;
-    display: block;
-}
-
-/* Fila resaltada en naranja suave cuando hay stock bajo */
-.fila-alerta-stock {
-    background-color: #fff3cd !important;
-    color: #856404;
-}
-
-/* Botón verde para acciones positivas / altas */
 .btn-success {
     background-color: #27ae60;
     color: white;
 }
 
-.btn-success:hover {
-    background-color: #219653;
-}
-
-/* Alerta global de stock bajo arriba de la tabla */
-.mensaje-alerta-global {
-    background-color: #fff3cd;
-    color: #856404;
-    padding: 10px 15px;
-    border: 1px solid #ffeeba;
-    border-radius: 4px;
-    display: block;
+.mensaje {
     margin-bottom: 15px;
     font-weight: bold;
-    font-size: 13px;
+    display: block;
 }
-

@@ -21,6 +21,7 @@ namespace GUI
 
             if (!IsPostBack)
             {
+                CargarTiposEnum();
                 CargarGrillaProductos();
             }
         }
@@ -43,6 +44,12 @@ namespace GUI
             {
                 lblAlertaStock.Visible = false;
             }
+        }
+
+        private void CargarTiposEnum()
+        {
+            ddlTipo.DataSource = Enum.GetValues(typeof(BE.TipoProducto));
+            ddlTipo.DataBind();
         }
 
         protected void gvProductos_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -73,20 +80,40 @@ namespace GUI
 
                 if (prod != null)
                 {
-                    // Rellenamos los campos de afuera del cuadrito con los datos actuales
                     hfIdProducto.Value = prod.Id.ToString();
                     txtNombre.Text = prod.Nombre;
-                    txtTipo.Text = prod.Tipo;
+
+                    // Seleccionar el tipo en el DropDownList de forma segura
+                    if (ddlTipo.Items.FindByText(prod.Tipo) != null)
+                        ddlTipo.SelectedValue = prod.Tipo;
+
                     txtPrecio.Text = prod.Precio.ToString("0.00");
                     txtStock.Text = prod.StockActual.ToString();
+                    txtStockMinimo.Text = prod.StockMinimo.ToString();
 
-                    // Activamos el botón de guardar y cancelar
+                    // Configuramos vista de Edición
+                    lblTituloForm.Text = "Modificar Producto";
+                    btnGuardarCambios.Visible = true;      
                     btnGuardarCambios.Enabled = true;
+                    btnRegistrarNuevo.Visible = false;     
                     btnCancelarEdicion.Visible = true;
                     lblMensaje.Text = "Editando el producto: " + prod.Nombre;
                     lblMensaje.ForeColor = System.Drawing.Color.Blue;
                 }
             }
+        }
+
+        protected void btnModoNuevo_Click(object sender, EventArgs e)
+        {
+            LimpiarFormulario();
+            lblTituloForm.Text = "Registrar Nuevo Producto";
+
+            btnGuardarCambios.Visible = false;     
+            btnRegistrarNuevo.Visible = true;      
+            btnCancelarEdicion.Visible = true;
+
+            lblMensaje.Text = "Complete los datos para dar de alta un nuevo producto.";
+            lblMensaje.ForeColor = System.Drawing.Color.DarkGreen;
         }
 
         protected void btnGuardarCambios_Click(object sender, EventArgs e)
@@ -98,9 +125,10 @@ namespace GUI
                 BE.PRODUCTO prod = new BE.PRODUCTO();
                 prod.Id = Convert.ToInt32(hfIdProducto.Value);
                 prod.Nombre = txtNombre.Text.Trim();
-                prod.Tipo = txtTipo.Text.Trim();
+                prod.Tipo = ddlTipo.SelectedValue;
                 prod.Precio = Convert.ToDecimal(txtPrecio.Text);
                 prod.StockActual = Convert.ToInt32(txtStock.Text);
+                prod.StockMinimo = Convert.ToInt32(txtStockMinimo.Text);
 
                 gestorProducto.ActualizarProducto(prod);
 
@@ -117,6 +145,32 @@ namespace GUI
             }
         }
 
+        protected void btnRegistrarNuevo_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                BE.PRODUCTO nuevoProd = new BE.PRODUCTO();
+                nuevoProd.Nombre = txtNombre.Text.Trim();
+                nuevoProd.Tipo = ddlTipo.SelectedValue;
+                nuevoProd.Precio = Convert.ToDecimal(txtPrecio.Text);
+                nuevoProd.StockActual = Convert.ToInt32(txtStock.Text);
+                nuevoProd.StockMinimo = Convert.ToInt32(txtStockMinimo.Text);
+
+                gestorProducto.InsertarProducto(nuevoProd);
+
+                lblMensaje.Text = "¡Nuevo producto registrado con éxito!";
+                lblMensaje.ForeColor = System.Drawing.Color.Green;
+
+                CargarGrillaProductos();
+                LimpiarFormulario();
+            }
+            catch (Exception ex)
+            {
+                lblMensaje.Text = "Error al registrar: " + ex.Message;
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+            }
+        }
+
         protected void btnCancelarEdicion_Click(object sender, EventArgs e)
         {
             LimpiarFormulario();
@@ -127,10 +181,14 @@ namespace GUI
         {
             hfIdProducto.Value = "";
             txtNombre.Text = "";
-            txtTipo.Text = "";
             txtPrecio.Text = "";
             txtStock.Text = "";
-            btnGuardarCambios.Enabled = false;
+            txtStockMinimo.Text = "";
+            if (ddlTipo.Items.Count > 0) ddlTipo.SelectedIndex = 0;
+
+            lblTituloForm.Text = "Gestión de Productos";
+            btnGuardarCambios.Visible = false;
+            btnRegistrarNuevo.Visible = false;
             btnCancelarEdicion.Visible = false;
         }
 

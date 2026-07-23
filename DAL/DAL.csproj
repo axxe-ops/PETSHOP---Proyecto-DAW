@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ACCESO.cs" />
+    <Compile Include="MP_BITACORA.cs" />
     <Compile Include="MP_PEDIDO.cs" />
     <Compile Include="MP_PRODUCTO.cs" />
     <Compile Include="MP_USUARIO.cs" />
