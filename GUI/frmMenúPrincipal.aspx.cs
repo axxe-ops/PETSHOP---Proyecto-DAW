@@ -138,6 +138,13 @@ namespace GUI
 
         }
 
+        protected void btnIrDigitosVerificadores_Click(object sender, EventArgs e)
+        {
+            //Digitos Verificadores
+
+            Response.Redirect("frmDigitosVerificadores.aspx");
+        }
+
 
         protected void btnCerrarSesion_Click(object sender, EventArgs e)
         {

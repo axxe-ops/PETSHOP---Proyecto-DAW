@@ -52,6 +52,8 @@ namespace DAL
                 usu.Email = row["Email"].ToString();
                 usu.Telefono = row["Telefono"].ToString();
 
+                usu.Dvh = row["DigitoVerificador"] != DBNull.Value ? row["DigitoVerificador"].ToString() : string.Empty;
+
                 lista.Add(usu);
             }
 

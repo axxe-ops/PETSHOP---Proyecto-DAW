@@ -15,19 +15,28 @@
             <div class="header-content">
                 <h1>🐾 Petshop</h1>
                 
-                <!-- MENÚ DE NAVEGACIÓN CON DESGLOSE (COMPOSITE) -->
+                                <!-- MENÚ DE NAVEGACIÓN CON DESGLOSE (COMPOSITE) -->
                 <asp:Panel ID="pnlMenuAdmin" runat="server" CssClass="admin-menu-panel">
                     <nav class="nav-menu">
                         <ul class="menu-list">
                             <li class="menu-item"><a href="frmMenúPrincipal.aspx">Inicio</a></li>
-                            
+            
+                            <!-- 1. Carpeta de Gestión del Negocio -->
                             <li class="menu-item dropdown">
-                                <a href="javascript:void(0);" class="drop-btn">Administración ▾</a>
+                                <a href="javascript:void(0);" class="drop-btn">Gestión ▾</a>
                                 <div class="dropdown-content">
-                                    <asp:LinkButton ID="lnkGestionPedidos"      runat="server"  OnClick="btnIrGestionPedidos_Click">Gestionar Pedidos</asp:LinkButton>
+                                    <asp:LinkButton ID="lnkGestionPedidos"    runat="server"  OnClick="btnIrGestionPedidos_Click">Gestionar Pedidos</asp:LinkButton>
                                     <asp:LinkButton ID="lnkGestionProductos"    runat="server"  OnClick="btnIrGestionProductos_Click">Gestionar Productos</asp:LinkButton>
                                     <asp:LinkButton ID="lnkGestionUsuarios"     runat="server"  OnClick="btnIrGestionUsuarios_Click">Gestionar Usuarios</asp:LinkButton>
-                                    <asp:LinkButton ID="lnkBitacora"            runat="server"  OnClick="btnIrBitacora_Click">Bitacora</asp:LinkButton>
+                                </div>
+                            </li>
+
+                            <!-- 2. Carpeta de Seguridad y Sistema (¡Nuevo con Dígitos Verificadores!) -->
+                            <li class="menu-item dropdown">
+                                <a href="javascript:void(0);" class="drop-btn">Sistema y Seguridad ▾</a>
+                                <div class="dropdown-content">
+                                    <asp:LinkButton ID="lnkBitacora"            runat="server"  OnClick="btnIrBitacora_Click">Bitácora</asp:LinkButton>
+                                    <asp:LinkButton ID="lnkDigitosVerificadores" runat="server" OnClick="btnIrDigitosVerificadores_Click">Dígitos Verificadores</asp:LinkButton>
                                 </div>
                             </li>
                         </ul>

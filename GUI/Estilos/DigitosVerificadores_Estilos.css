@@ -1,0 +1,159 @@
+﻿body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7f6;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+.header-panel {
+    background-color: #2c3e50;
+    color: white;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+    .header-panel h1 {
+        margin: 0;
+        font-size: 24px;
+    }
+
+.container {
+    max-width: 1100px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+/* Panel de Estado General (OK / Error) */
+.panel-estado {
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+    .panel-estado.estado-ok {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+    }
+
+    .panel-estado.estado-error {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
+
+/* Botones de Acción */
+.panel-acciones-dv {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+    transition: background-color 0.2s, transform 0.1s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+    .btn:active {
+        transform: translateY(1px);
+    }
+
+.btn-volver {
+    background-color: #7f8c8d;
+}
+
+    .btn-volver:hover {
+        background-color: #707b7c;
+    }
+
+.btn-verificar {
+    background-color: #3498db;
+}
+
+    .btn-verificar:hover {
+        background-color: #2980b9;
+    }
+
+.btn-recalcular {
+    background-color: #e67e22;
+}
+
+    .btn-recalcular:hover {
+        background-color: #d35400;
+    }
+
+.btn-restaurar {
+    background-color: #e74c3c;
+}
+
+    .btn-restaurar:hover {
+        background-color: #c0392b;
+    }
+
+/* Sección de la Grilla de Alterados */
+.seccion-alterados {
+    background: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+    .seccion-alterados h2 {
+        margin-top: 0;
+        font-size: 20px;
+        color: #2c3e50;
+        margin-bottom: 15px;
+    }
+
+.contenedor-tabla-scroll {
+    overflow-x: auto;
+}
+
+.tabla-bitacora {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    text-align: left;
+}
+
+    .tabla-bitacora th {
+        background-color: #34495e;
+        color: white;
+        padding: 12px 15px;
+        font-size: 14px;
+    }
+
+    .tabla-bitacora td {
+        padding: 12px 15px;
+        border-bottom: 1px solid #ecf0f1;
+        font-size: 14px;
+    }
+
+    .tabla-bitacora tr:hover {
+        background-color: #f8f9fa;
+    }
+
+    /* Estilo cuando la grilla está vacía */
+    .tabla-bitacora tr td[colspan] {
+        text-align: center;
+        color: #7f8c8d;
+        font-style: italic;
+        padding: 20px;
+    }

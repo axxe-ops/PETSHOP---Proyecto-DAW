@@ -42,7 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BACKUP_BLL.cs" />
     <Compile Include="BITACORA_BLL.cs" />
+    <Compile Include="DIGITOSVERIFICADORES_BLL.cs" />
     <Compile Include="SESSION_MANAGER.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

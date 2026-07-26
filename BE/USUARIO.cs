@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BE
 {
-    public class USUARIO
+    public class USUARIO : IVerificarDigitos
     {
 		private int id;
 		public int Id
@@ -51,6 +51,20 @@ namespace BE
         }
 
 
+		//dv horizontal
+		private string digitoVerificador;
+		public string DigitoVerificador
+		{
+			get { return digitoVerificador; }
+			set { digitoVerificador = value; }
+		}
 
+        public string Dvh { get; set; }
+
+        public string CalcularDVH()
+        {
+            string datos = Id.ToString() + Nombre + Password + Permiso;
+            return SEGURIDAD.ENCRIPTADO.Hashear(datos);
+        }
     }
 }

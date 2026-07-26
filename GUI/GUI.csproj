@@ -118,15 +118,19 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Estilos\Backup_Estilos.css" />
     <Content Include="Estilos\Bitacora_Estilos.css" />
+    <Content Include="Estilos\DigitosVerificadores_Estilos.css" />
     <Content Include="Estilos\GestionProductos_Estilos.css" />
     <Content Include="Estilos\GestionUsuarios_Estilos.css" />
     <Content Include="Estilos\Login_estilos.css" />
     <Content Include="Estilos\MenuPrincipal_Estilos.css" />
     <Content Include="Estilos\Carrito_Estilos.css" />
     <Content Include="Estilos\GestionPedidos_Estilos.css" />
+    <Content Include="frmBackup.aspx" />
     <Content Include="frmBitacora.aspx" />
     <Content Include="frmCarrito.aspx" />
+    <Content Include="frmDigitosVerificadores.aspx" />
     <Content Include="frmGestionPedidos.aspx" />
     <Content Include="frmGestionProductos.aspx" />
     <Content Include="frmGestionUsuarios.aspx" />
@@ -212,6 +216,13 @@
     <Compile Include="Contact.aspx.designer.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
     </Compile>
+    <Compile Include="frmBackup.aspx.cs">
+      <DependentUpon>frmBackup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="frmBackup.aspx.designer.cs">
+      <DependentUpon>frmBackup.aspx</DependentUpon>
+    </Compile>
     <Compile Include="frmBitacora.aspx.cs">
       <DependentUpon>frmBitacora.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -225,6 +236,13 @@
     </Compile>
     <Compile Include="frmCarrito.aspx.designer.cs">
       <DependentUpon>frmCarrito.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="frmDigitosVerificadores.aspx.cs">
+      <DependentUpon>frmDigitosVerificadores.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="frmDigitosVerificadores.aspx.designer.cs">
+      <DependentUpon>frmDigitosVerificadores.aspx</DependentUpon>
     </Compile>
     <Compile Include="frmGestionPedidos.aspx.cs">
       <DependentUpon>frmGestionPedidos.aspx</DependentUpon>

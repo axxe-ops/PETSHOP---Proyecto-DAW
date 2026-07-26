@@ -41,9 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BACKUP_INFO.cs" />
     <Compile Include="BITACORA.cs" />
     <Compile Include="CARRITO.cs" />
     <Compile Include="ITEM_CARRITO.cs" />
+    <Compile Include="IVerificarDigitos.cs" />
     <Compile Include="PEDIDO.cs" />
     <Compile Include="PERMISO.cs" />
     <Compile Include="PRODUCTO.cs" />
@@ -53,6 +55,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SEGURIDAD\SEGURIDAD.csproj">
+      <Project>{448f307e-d4ca-4122-9d8e-ab00a959a7e8}</Project>
+      <Name>SEGURIDAD</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
