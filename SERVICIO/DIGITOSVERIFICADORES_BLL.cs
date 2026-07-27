@@ -11,19 +11,19 @@ namespace SERVICIO
     {
         DAL.MP_DIGITOSVERIFICADORES mapperDigitos = new DAL.MP_DIGITOSVERIFICADORES();
         DAL.MP_USUARIO mapperUsuario = new DAL.MP_USUARIO();
+        DAL.MP_PRODUCTO mapperProducto = new DAL.MP_PRODUCTO();
 
         public List<string> VerificarIntegridadSistema()
         {
             List<string> erroresTotales = new List<string>();
 
-            // Traemos la lista de usuarios desde la DAL y la casteamos a la interfaz
+            //USUARIOS - verificar
             List<IVerificarDigitos> listaUsuarios = mapperUsuario.Listar().Cast<IVerificarDigitos>().ToList();
+            erroresTotales.AddRange(VerificarIntegridad(listaUsuarios, "USUARIO"));
 
-            // Llamamos a tu método genérico pasándole los datos de la tabla USUARIOS
-            var erroresUsuarios = VerificarIntegridad(listaUsuarios, "USUARIO");
-            erroresTotales.AddRange(erroresUsuarios);
-
-            // (Si el día de mañana agregas productos, los sumarías acá abajo)
+            //PRODUCTOS - verificar
+            List<IVerificarDigitos> listaProductos = mapperProducto.Listar().Cast<IVerificarDigitos>().ToList();
+            erroresTotales.AddRange(VerificarIntegridad(listaProductos, "PRODUCTO"));
 
             return erroresTotales;
         }
@@ -59,27 +59,39 @@ namespace SERVICIO
 
         public void RecalcularDigitosSistema()
         {
-            DAL.MP_USUARIO mapperUsuario = new DAL.MP_USUARIO();
+            // USUARIOS - Recalcular
             List<IVerificarDigitos> listaUsuarios = mapperUsuario.Listar().Cast<IVerificarDigitos>().ToList();
-
             int sumaDVH = 0;
 
             foreach (var item in listaUsuarios)
             {
-                // 1. Recalculamos el DVH de la entidad
                 string nuevoDvh = item.CalcularDVH();
 
-                // 2. Actualizamos el DVH de este registro en la base de datos (necesitarás un método en tu DAL de usuario o en el de dígitos)
-                mapperDigitos.ActualizarDVH(item.Id, nuevoDvh); // O mapperUsuario.ActualizarDVH(...)
+                mapperDigitos.ActualizarDVH("USUARIO", item.Id, nuevoDvh);
 
-                // 3. Acumulamos para el vertical
                 int valorNumericoFila = 0;
                 int.TryParse(nuevoDvh, out valorNumericoFila);
                 sumaDVH += valorNumericoFila;
             }
 
-            // 4. Guardamos el nuevo DVV vertical de la tabla USUARIO en la base de datos
             mapperDigitos.ActualizarDVV("USUARIO", sumaDVH);
+
+
+            //PRODUCTOS - Recalcular
+
+            List<IVerificarDigitos> listaProductos = mapperProducto.Listar().Cast<IVerificarDigitos>().ToList();
+            int sumaDVHProductos = 0;
+
+            foreach (var item in listaProductos)
+            {
+                string nuevoDvh = item.CalcularDVH();
+                mapperDigitos.ActualizarDVH("PRODUCTO", item.Id, nuevoDvh);
+
+                int valorNumericoFila = 0;
+                int.TryParse(nuevoDvh, out valorNumericoFila);
+                sumaDVHProductos += valorNumericoFila;
+            }
+            mapperDigitos.ActualizarDVV("PRODUCTO", sumaDVHProductos);
         }
 
 

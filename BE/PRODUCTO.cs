@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BE
 {
-    public class PRODUCTO
+    public class PRODUCTO : IVerificarDigitos
     {
 		private int id;
 		public int Id
@@ -51,9 +51,18 @@ namespace BE
 			set { stockMinimo = value; }
 		}
 
+        private string dvh;
+        public string Dvh
+        {
+            get { return dvh; }
+            set { dvh = value; }
+        }
 
+        public string CalcularDVH()
+        {
+            string cadena = $"{Id}{Nombre}{Tipo}{Precio}{StockActual}{StockMinimo}";
 
-
-
-	}
+            return SEGURIDAD.ENCRIPTADO.Hashear(cadena);
+        }
+    }
 }

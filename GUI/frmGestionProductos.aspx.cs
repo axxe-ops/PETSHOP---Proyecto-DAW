@@ -11,6 +11,7 @@ namespace GUI
     public partial class frmGestionProductos : System.Web.UI.Page
     {
         BLL.PRODUCTO gestorProducto = new BLL.PRODUCTO();
+        BITACORA_BLL gestorBitacora = new BITACORA_BLL();
         protected void Page_Load(object sender, EventArgs e)
         {
             var usuario = SESSION_MANAGER.ObtenerInstancia().ObtenerUsuario();
@@ -132,6 +133,9 @@ namespace GUI
 
                 gestorProducto.ActualizarProducto(prod);
 
+                var usuarioActual = SESSION_MANAGER.ObtenerInstancia().ObtenerUsuario();
+                gestorBitacora.RegistrarBitacora("El administrador " + usuarioActual.Nombre + " modificó el producto ID " + prod.Id + " (" + prod.Nombre + ").", 2);
+
                 lblMensaje.Text = "¡Producto actualizado correctamente!";
                 lblMensaje.ForeColor = System.Drawing.Color.Green;
 
@@ -157,6 +161,9 @@ namespace GUI
                 nuevoProd.StockMinimo = Convert.ToInt32(txtStockMinimo.Text);
 
                 gestorProducto.InsertarProducto(nuevoProd);
+
+                var usuarioActual = SESSION_MANAGER.ObtenerInstancia().ObtenerUsuario();
+                gestorBitacora.RegistrarBitacora("El administrador " + usuarioActual.Nombre + " dio de alta un nuevo producto: " + nuevoProd.Nombre + ".", 2);
 
                 lblMensaje.Text = "¡Nuevo producto registrado con éxito!";
                 lblMensaje.ForeColor = System.Drawing.Color.Green;

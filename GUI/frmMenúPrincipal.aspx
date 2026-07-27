@@ -31,12 +31,13 @@
                                 </div>
                             </li>
 
-                            <!-- 2. Carpeta de Seguridad y Sistema (¡Nuevo con Dígitos Verificadores!) -->
+                           <!-- 2. Carpeta de Seguridad y Sistema -->
                             <li class="menu-item dropdown">
                                 <a href="javascript:void(0);" class="drop-btn">Sistema y Seguridad ▾</a>
                                 <div class="dropdown-content">
-                                    <asp:LinkButton ID="lnkBitacora"            runat="server"  OnClick="btnIrBitacora_Click">Bitácora</asp:LinkButton>
+                                    <asp:LinkButton ID="lnkBitacora"             runat="server"  OnClick="btnIrBitacora_Click">Bitácora</asp:LinkButton>
                                     <asp:LinkButton ID="lnkDigitosVerificadores" runat="server" OnClick="btnIrDigitosVerificadores_Click">Dígitos Verificadores</asp:LinkButton>
+                                    <asp:LinkButton ID="lnkBackup"               runat="server"  OnClick="btnIrBackup_Click">Backup y Restauración</asp:LinkButton>
                                 </div>
                             </li>
                         </ul>

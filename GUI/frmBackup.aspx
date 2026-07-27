@@ -6,17 +6,24 @@
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>PetShop - Backup</title>
-    <link href="Estilos/Backup_Estilos.css" rel="stylesheet" />
+    <link href="Estilos/Backup_Estilos.css?v=99" rel="stylesheet" />
+    
 </head>
 <body>
     <form id="form1" runat="server">
+
+        <header class="header-panel">
+            <h1>Petshop - Gestión de Backups</h1>
+            <asp:Button ID="btnVolver" runat="server" Text="⬅️ Menú Principal" CssClass="btn btn-volver" OnClick="btnVolver_Click" CausesValidation="false" />
+        </header>
+
         <div class="container">
             <h2>Gestión de Respaldos y Restauración de Base de Datos</h2>
 
             <!-- SECCIÓN 1: CREAR BACKUP -->
             <div class="seccion-panel">
                 <h3>Generar Nuevo Respaldo (Full)</h3>
-                <asp:Button ID="btnHacerBackup" runat="server" Text="Crear Backup Full" OnClick="btnHacerBackup_Click" CssClass="btn-primary-custom" />
+                <asp:Button ID="btnHacerBackup" runat="server" Text="Crear Backup Full" OnClick="btnHacerBackup_Click" CssClass="btn btn-primary-custom" />
                 <asp:Label ID="lblMensajeBackup" runat="server" />
             </div>
 
@@ -31,7 +38,7 @@
                         <asp:BoundField DataField="RutaArchivo" HeaderText="Ubicación del Archivo" />
                         <asp:TemplateField HeaderText="Acción">
                             <ItemTemplate>
-                                <asp:Button ID="btnRestaurarItem" runat="server" Text="Restaurar esta versión" CommandName="RestaurarBD" CommandArgument='<%# Eval("RutaArchivo") %>' CssClass="btn-danger-custom" />
+                                <asp:Button ID="btnRestaurarItem" runat="server" Text="Restaurar esta versión" CommandName="RestaurarBD" CommandArgument='<%# Eval("RutaArchivo") %>' CssClass="btn btn-danger-custom" />
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Columns>
@@ -39,6 +46,7 @@
                 <asp:Label ID="lblMensajeRestaurar" runat="server" />
             </div>
         </div>
+
     </form>
 </body>
 </html>

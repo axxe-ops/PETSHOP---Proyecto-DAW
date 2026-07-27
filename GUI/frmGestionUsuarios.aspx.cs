@@ -12,6 +12,7 @@ namespace GUI
     public partial class frmGestionUsuarios : System.Web.UI.Page
     {
         BLL.USUARIO gestorUsuario = new BLL.USUARIO();
+        SERVICIO.BITACORA_BLL gestorBitacora = new BITACORA_BLL();
         protected void Page_Load(object sender, EventArgs e)
         {
             var usuarioActual = SESSION_MANAGER.ObtenerInstancia().ObtenerUsuario();
@@ -87,6 +88,10 @@ namespace GUI
                 try
                 {
                     gestorUsuario.Eliminar(idUsuario);
+
+                    var usuarioActualAdmin = SESSION_MANAGER.ObtenerInstancia().ObtenerUsuario();
+                    gestorBitacora.RegistrarBitacora("El administrador " + usuarioActualAdmin.Nombre + " eliminó al usuario con ID " + idUsuario + ".", 4);
+
                     lblMensaje.Text = "¡Usuario eliminado con éxito!";
                     lblMensaje.ForeColor = System.Drawing.Color.Green;
                     CargarGrillaUsuarios();
@@ -137,6 +142,9 @@ namespace GUI
 
                 gestorUsuario.ActualizarUsuario(usu);
 
+                var usuarioActualAdmin = SESSION_MANAGER.ObtenerInstancia().ObtenerUsuario();
+                gestorBitacora.RegistrarBitacora("El administrador " + usuarioActualAdmin.Nombre + " modificó los datos/permisos del usuario: " + usu.Nombre + ".", 3);
+
                 lblMensaje.Text = "¡Usuario actualizado correctamente!";
                 lblMensaje.ForeColor = System.Drawing.Color.Green;
 
@@ -162,6 +170,9 @@ namespace GUI
                 nuevoUsu.Telefono = txtTelefono.Text.Trim();
 
                 gestorUsuario.Insertar(nuevoUsu);
+
+                var usuarioActualAdmin = SESSION_MANAGER.ObtenerInstancia().ObtenerUsuario();
+                gestorBitacora.RegistrarBitacora("El administrador " + usuarioActualAdmin.Nombre + " creó un nuevo usuario: " + nuevoUsu.Nombre + " con perfil " + nuevoUsu.Permiso + ".", 3);
 
                 lblMensaje.Text = "¡Nuevo usuario registrado con éxito!";
                 lblMensaje.ForeColor = System.Drawing.Color.Green;

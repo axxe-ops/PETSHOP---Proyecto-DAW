@@ -23,23 +23,10 @@ namespace DAL
 
         public override List<BACKUP_INFO> Listar()
         {
-            var sql = @"
-                SELECT TOP 50
-                    bmf.physical_device_name AS RutaArchivo,
-                    bs.backup_finish_date    AS Fecha,
-                    bs.database_name         AS NombreBaseDatos
-                FROM msdb.dbo.backupset bs
-                JOIN msdb.dbo.backupmediafamily bmf
-                    ON bs.media_set_id = bmf.media_set_id
-                WHERE bs.database_name = @Db
-                ORDER BY bs.backup_finish_date DESC";
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            parametros.Add(acceso.CrearParametro("@Db", "PETSHOP"));
 
-            List<SqlParameter> parametros = new List<SqlParameter>
-            {
-                new SqlParameter("@Db", "PETSHOP")
-            };
-
-            DataTable tabla = acceso.Leer(sql, parametros);
+            DataTable tabla = acceso.Leer("sp_ListarBackups", parametros);
             List<BACKUP_INFO> lista = new List<BACKUP_INFO>();
 
             foreach (DataRow r in tabla.Rows)
@@ -62,34 +49,19 @@ namespace DAL
 
         public void RestaurarBaseDatos(string rutaArchivo)
         {
-            // Forzamos a modo monousuario para desconectar sesiones y poder restaurar
-            var sql = @"
-                ALTER DATABASE [PETSHOP] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
-        
-                RESTORE DATABASE [PETSHOP] 
-                FROM DISK = @Path 
-                WITH REPLACE;
-        
-                ALTER DATABASE [PETSHOP] SET MULTI_USER;";
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            parametros.Add(acceso.CrearParametro("@Path", rutaArchivo));
 
-            List<SqlParameter> parametros = new List<SqlParameter>
-            {
-                new SqlParameter("@Path", rutaArchivo)
-            };
-
-            acceso.Escribir(sql, parametros);
+            // Usamos el método que se conecta a master para evitar el bloqueo
+            acceso.EscribirEnMaster("sp_RestaurarBaseDatos", parametros);
         }
 
         public void EjecutarBackupFull(string rutaDestino)
         {
-            var sql = "BACKUP DATABASE [PETSHOP] TO DISK = @Path WITH INIT, COMPRESSION, CHECKSUM;";
+            List<SqlParameter> parametros = new List<SqlParameter>();
+            parametros.Add(acceso.CrearParametro("@Path", rutaDestino));           
 
-            List<SqlParameter> parametros = new List<SqlParameter>
-            {
-                new SqlParameter("@Path", rutaDestino)
-            };
-
-            acceso.Escribir(sql, parametros);
+            acceso.Escribir("sp_RealizarBackupFull", parametros);
         }
     }
 }

@@ -13,11 +13,19 @@ namespace DAL
     {
         public void ActualizarEstado(int idPedido, string nuevoEstado)
         {
-            List<SqlParameter> parametros = new List<SqlParameter>();
-            parametros.Add(new SqlParameter("@IdPedido", idPedido));
-            parametros.Add(new SqlParameter("@Estado", nuevoEstado));
+            PEDIDO pedido = ObtenerPorId(idPedido);
+            if (pedido != null)
+            {
+                pedido.Estado = nuevoEstado;
+                pedido.Dvh = pedido.CalcularDVH();
 
-            acceso.Escribir("sp_ActualizarEstadoPedido", parametros);
+                List<SqlParameter> parametros = new List<SqlParameter>();
+                parametros.Add(new SqlParameter("@IdPedido", idPedido));
+                parametros.Add(new SqlParameter("@Estado", nuevoEstado));
+                parametros.Add(new SqlParameter("@DVH", pedido.Dvh));
+
+                acceso.Escribir("sp_ActualizarEstadoPedido", parametros);
+            }
         }
 
         public PEDIDO ObtenerPorId(int idPedido)
@@ -37,6 +45,7 @@ namespace DAL
                 pedido.Fecha = Convert.ToDateTime(row["Fecha"]);
                 pedido.Estado = row["Estado"].ToString();
                 pedido.MontoTotal = Convert.ToDecimal(row["MontoTotal"]);
+                pedido.Dvh = row["DVH"].ToString();
 
                 // Asignamos el Cliente (Usuario) asociado al pedido
                 pedido.Cliente = new USUARIO();
@@ -81,6 +90,8 @@ namespace DAL
             parametrosCabecera.Add(new SqlParameter("@Fecha", obj.Fecha));
             parametrosCabecera.Add(new SqlParameter("@Estado", obj.Estado));
             parametrosCabecera.Add(new SqlParameter("@MontoTotal", obj.MontoTotal));
+            obj.Dvh = obj.CalcularDVH();
+            parametrosCabecera.Add(new SqlParameter("@DVH", obj.Dvh));
 
             int idPedidoGenerado = Convert.ToInt32(acceso.EjecutarEscalar("sp_InsertarPedido", parametrosCabecera));
 
@@ -109,6 +120,7 @@ namespace DAL
                 pedido.Fecha = Convert.ToDateTime(row["Fecha"]);
                 pedido.Estado = row["Estado"].ToString();
                 pedido.MontoTotal = Convert.ToDecimal(row["MontoTotal"]);
+                pedido.Dvh = row["DVH"].ToString();
 
                 pedido.Cliente = new USUARIO();
                 pedido.Cliente.Id = Convert.ToInt32(row["IdUsuario"]);

@@ -23,6 +23,8 @@ namespace DAL
             parametros.Add(new SqlParameter("@Precio", obj.Precio));
             parametros.Add(new SqlParameter("@StockActual", obj.StockActual));
             parametros.Add(new SqlParameter("@StockMinimo", obj.StockMinimo));
+            obj.Dvh = obj.CalcularDVH();
+            parametros.Add(new SqlParameter("@DVH", obj.Dvh));
 
             acceso.Escribir("sp_InsertarProducto", parametros);
         }
@@ -42,6 +44,7 @@ namespace DAL
                 p.Precio = (decimal)row["Precio"];
                 p.StockActual = (int)row["StockActual"];
                 p.StockMinimo = (int)row["StockMinimo"];
+                p.Dvh = row["DVH"].ToString();
 
                 lista.Add(p);
             }
@@ -50,12 +53,18 @@ namespace DAL
 
         public override void Modificar(BE.PRODUCTO obj)
         {
+            
+            
+
             List<SqlParameter> parametros = new List<SqlParameter>();
             parametros.Add(new SqlParameter("@Id", obj.Id));
             parametros.Add(new SqlParameter("@Nombre", obj.Nombre));
             parametros.Add(new SqlParameter("@Tipo", obj.Tipo));
             parametros.Add(new SqlParameter("@Precio", obj.Precio));
-            parametros.Add(new SqlParameter("@Stock", obj.StockActual)); 
+            parametros.Add(new SqlParameter("@StockActual", obj.StockActual)); // <-- Corregido el nombre
+            parametros.Add(new SqlParameter("@StockMinimo", obj.StockMinimo)); // <-- Agregado el que faltaba
+            obj.Dvh = obj.CalcularDVH();
+            parametros.Add(new SqlParameter("@DVH", obj.Dvh));
 
             acceso.Escribir("sp_ModificarProducto", parametros);
         }
@@ -79,6 +88,7 @@ namespace DAL
                 producto.Precio = (decimal)row["Precio"];
                 producto.StockActual = (int)row["StockActual"];
                 producto.StockMinimo = (int)row["StockMinimo"];
+                producto.Dvh = row["DVH"].ToString();
             }
 
             return producto;

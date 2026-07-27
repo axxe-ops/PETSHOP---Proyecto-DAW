@@ -89,6 +89,22 @@ namespace DAL
             return param;
         }
 
+        public int EscribirEnMaster(string nombreStoredProcedure, List<SqlParameter> parametros = null)
+        {
+            // Cambiamos InitialCatalog a 'master' para liberar la base PETSHOP - Para que no haya problemas con Backup
+            string connectionStringMaster = @"Integrated Security=SSPI;Initial Catalog=master;Data Source=localhost\SQLEXPRESS";
 
+            using (SqlConnection con = new SqlConnection(connectionStringMaster))
+            {
+                using (SqlCommand cmd = new SqlCommand(nombreStoredProcedure, con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    if (parametros != null) cmd.Parameters.AddRange(parametros.ToArray());
+
+                    con.Open();
+                    return cmd.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }

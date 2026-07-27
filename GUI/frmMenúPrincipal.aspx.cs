@@ -137,12 +137,15 @@ namespace GUI
             Response.Redirect("frmBitacora.aspx");
 
         }
-
         protected void btnIrDigitosVerificadores_Click(object sender, EventArgs e)
         {
             //Digitos Verificadores
 
             Response.Redirect("frmDigitosVerificadores.aspx");
+        }
+        protected void btnIrBackup_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("frmBackup.aspx");
         }
 
 

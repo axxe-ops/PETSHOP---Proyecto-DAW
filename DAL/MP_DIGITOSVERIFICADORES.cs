@@ -12,14 +12,15 @@ namespace DAL
     {
         DAL.ACCESO acceso = new DAL.ACCESO();
 
-        public void ActualizarDVH(int id, string nuevoDvh)
+        public void ActualizarDVH(string nombreTabla, int id, string nuevoDvh)
         {
             List<SqlParameter> parametros = new List<SqlParameter>();
+            parametros.Add(new SqlParameter("@Tabla", nombreTabla));
             parametros.Add(new SqlParameter("@Id", id));
             parametros.Add(new SqlParameter("@DVH", nuevoDvh));
 
-            // Ejecuta el Store Procedure encargado de actualizar el dígito horizontal del usuario
-            acceso.Escribir("sp_ActualizarDVHUsuario", parametros);
+            // Ejecutamos un Stored Procedure genérico para actualizar el DVH según la tabla
+            acceso.Escribir("sp_ActualizarDVHGenerico", parametros);
         }
 
         public void ActualizarDVV(string nombreTabla, int sumaDVH)

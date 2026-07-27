@@ -12,6 +12,7 @@ namespace GUI
     public partial class frmBackup : System.Web.UI.Page
     {
         BACKUP_BLL gestorBackup = new BACKUP_BLL();
+        SERVICIO.BITACORA_BLL gestorBitacora = new BITACORA_BLL();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -55,6 +56,9 @@ namespace GUI
 
                 gestorBackup.RealizarBackup(rutaCompleta);
 
+                var usuarioActual = SESSION_MANAGER.ObtenerInstancia().ObtenerUsuario();
+                gestorBitacora.RegistrarBitacora("El Webmaster " + usuarioActual.Nombre + " generó un backup exitoso en: " + rutaCompleta, 3);
+
                 lblMensajeBackup.Text = "✔️ ¡Backup generado con éxito en: " + rutaCompleta + "!";
                 lblMensajeBackup.CssClass = "mensaje-info";
 
@@ -77,6 +81,9 @@ namespace GUI
                 {
                     gestorBackup.RestaurarBaseDatos(rutaArchivoBackup);
 
+                    var usuarioActual = SESSION_MANAGER.ObtenerInstancia().ObtenerUsuario();
+                    gestorBitacora.RegistrarBitacora("El Webmaster " + usuarioActual.Nombre + " RESTAURÓ la base de datos desde el archivo: " + rutaArchivoBackup, 5);
+
                     lblMensajeRestaurar.Text = $"✔️ Base de datos restaurada con éxito desde: {rutaArchivoBackup}";
                     lblMensajeRestaurar.CssClass = "mensaje-info";
                 }
@@ -86,6 +93,11 @@ namespace GUI
                     lblMensajeRestaurar.CssClass = "mensaje-error";
                 }
             }
+        }
+
+        protected void btnVolver_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("frmMenúPrincipal.aspx");
         }
     }
 }

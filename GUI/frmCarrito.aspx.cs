@@ -12,6 +12,7 @@ namespace GUI
     {
         BLL.PEDIDO gestorPedido = new BLL.PEDIDO();
         BLL.PRODUCTO gestorProducto = new BLL.PRODUCTO();
+        SERVICIO.BITACORA_BLL gestorBitacora = new BITACORA_BLL();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -102,6 +103,8 @@ namespace GUI
                     //Persistimos el pedido en la base de datos                    
                     gestorPedido.Insertar(nuevoPedido);
 
+                    gestorBitacora.RegistrarBitacora("El usuario " + usuarioActual.Nombre + " realizó una compra exitosa por un monto total de $" + totalPedido, 2);
+
                     //Limpiamos el carrito de la sesión tras la compra exitosa
                     Session["Carrito"] = null;
 
@@ -115,6 +118,8 @@ namespace GUI
                 }
                 catch (Exception ex)
                 {
+                    gestorBitacora.RegistrarBitacora("Error al procesar la compra del usuario " + usuarioActual.Nombre + ": " + ex.Message, 4);
+
                     lblMensaje.Text = "Error al procesar la compra: " + ex.Message;
                     lblMensaje.CssClass = "mensaje text-danger";
                 }

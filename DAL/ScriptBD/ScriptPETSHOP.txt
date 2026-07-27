@@ -1,6 +1,6 @@
 ﻿USE [master]
 GO
-/****** Object:  Database [PETSHOP]    Script Date: 23/07/2026 2:48:47 ******/
+/****** Object:  Database [PETSHOP]    Script Date: 26/07/2026 22:30:22 ******/
 CREATE DATABASE [PETSHOP]
  CONTAINMENT = NONE
  ON  PRIMARY 
@@ -80,7 +80,7 @@ ALTER DATABASE [PETSHOP] SET QUERY_STORE = OFF
 GO
 USE [PETSHOP]
 GO
-/****** Object:  Table [dbo].[BITACORA]    Script Date: 23/07/2026 2:48:47 ******/
+/****** Object:  Table [dbo].[BITACORA]    Script Date: 26/07/2026 22:30:23 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -98,7 +98,7 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[DETALLE_PEDIDO]    Script Date: 23/07/2026 2:48:47 ******/
+/****** Object:  Table [dbo].[DETALLE_PEDIDO]    Script Date: 26/07/2026 22:30:23 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -115,7 +115,22 @@ PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[PEDIDO]    Script Date: 23/07/2026 2:48:47 ******/
+/****** Object:  Table [dbo].[DV_VERTICAL]    Script Date: 26/07/2026 22:30:23 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[DV_VERTICAL](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[NombreTabla] [varchar](100) NOT NULL,
+	[DigitoVertical] [varchar](255) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[PEDIDO]    Script Date: 26/07/2026 22:30:23 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -126,13 +141,14 @@ CREATE TABLE [dbo].[PEDIDO](
 	[IdUsuario] [int] NOT NULL,
 	[MontoTotal] [decimal](18, 2) NOT NULL,
 	[Estado] [nvarchar](30) NOT NULL,
+	[DVH] [varchar](max) NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[PRODUCTO]    Script Date: 23/07/2026 2:48:47 ******/
+/****** Object:  Table [dbo].[PRODUCTO]    Script Date: 26/07/2026 22:30:23 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -144,13 +160,14 @@ CREATE TABLE [dbo].[PRODUCTO](
 	[Precio] [decimal](18, 2) NOT NULL,
 	[StockActual] [int] NOT NULL,
 	[StockMinimo] [int] NOT NULL,
+	[DVH] [varchar](max) NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[USUARIO]    Script Date: 23/07/2026 2:48:47 ******/
+/****** Object:  Table [dbo].[USUARIO]    Script Date: 26/07/2026 22:30:23 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -162,6 +179,7 @@ CREATE TABLE [dbo].[USUARIO](
 	[Permiso] [nvarchar](50) NOT NULL,
 	[Email] [varchar](100) NULL,
 	[Telefono] [varchar](50) NULL,
+	[DigitoVerificador] [varchar](255) NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
@@ -180,6 +198,78 @@ INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criti
 INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (8, CAST(N'2026-07-23T02:29:31.900' AS DateTime), 4, N'lauti', 1, N'Intento fallido de inicio de sesión con el usuario: lauti')
 INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (9, CAST(N'2026-07-23T02:29:41.380' AS DateTime), 2, N'axel', 1, N'El usuario axel inició sesión correctamente.')
 INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (10, CAST(N'2026-07-23T02:31:20.840' AS DateTime), 2, N'axel', 1, N'El usuario axel inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (11, CAST(N'2026-07-23T14:36:28.910' AS DateTime), 2, N'axel', 1, N'El usuario axel inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (12, CAST(N'2026-07-23T14:37:24.997' AS DateTime), 2, N'axel', 1, N'El usuario axel inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (13, CAST(N'2026-07-24T15:00:33.413' AS DateTime), 2, N'axel', 1, N'El usuario axel inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (14, CAST(N'2026-07-24T15:05:33.423' AS DateTime), 2, N'axel', 1, N'El usuario axel inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (15, CAST(N'2026-07-24T15:09:15.830' AS DateTime), 2, N'axel', 1, N'El usuario axel inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (16, CAST(N'2026-07-24T15:09:45.290' AS DateTime), 0, N'Sistema / Anónimo', 3, N'Intento fallido de inicio de sesión con el usuario: bar')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (17, CAST(N'2026-07-24T15:09:47.523' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (18, CAST(N'2026-07-24T15:26:51.460' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (19, CAST(N'2026-07-24T15:28:41.180' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (20, CAST(N'2026-07-24T15:31:49.270' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (21, CAST(N'2026-07-24T15:34:01.303' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (22, CAST(N'2026-07-24T15:36:34.503' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (23, CAST(N'2026-07-24T15:38:05.527' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (24, CAST(N'2026-07-24T15:41:47.837' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (25, CAST(N'2026-07-26T13:01:46.577' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (26, CAST(N'2026-07-26T15:18:21.130' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (27, CAST(N'2026-07-26T15:24:24.363' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (28, CAST(N'2026-07-26T15:27:30.637' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (29, CAST(N'2026-07-26T15:28:32.903' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (30, CAST(N'2026-07-26T15:51:47.717' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (31, CAST(N'2026-07-26T16:14:10.100' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (32, CAST(N'2026-07-26T16:18:49.960' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (33, CAST(N'2026-07-26T16:54:44.910' AS DateTime), 3, N'Barbie', 1, N'El usuario: Barbie cerró sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (34, CAST(N'2026-07-26T16:54:51.647' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (35, CAST(N'2026-07-26T16:55:00.850' AS DateTime), 3, N'Barbie', 1, N'El usuario: Barbie cerró sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (36, CAST(N'2026-07-26T16:55:03.500' AS DateTime), 4, N'lauti', 1, N'El usuario lauti inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (37, CAST(N'2026-07-26T16:55:26.423' AS DateTime), 4, N'lauti', 1, N'El usuario: lauti cerró sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (38, CAST(N'2026-07-26T16:55:28.863' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (39, CAST(N'2026-07-26T16:55:31.117' AS DateTime), 3, N'Barbie', 1, N'El usuario: Barbie cerró sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (40, CAST(N'2026-07-26T16:55:33.370' AS DateTime), 4, N'lauti', 1, N'El usuario lauti inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (41, CAST(N'2026-07-26T16:55:35.583' AS DateTime), 4, N'lauti', 1, N'El usuario: lauti cerró sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (42, CAST(N'2026-07-26T16:55:38.317' AS DateTime), 2, N'axel', 1, N'El usuario axel inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (43, CAST(N'2026-07-26T16:56:23.880' AS DateTime), 2, N'axel', 1, N'El usuario: axel cerró sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (44, CAST(N'2026-07-26T16:56:26.043' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (45, CAST(N'2026-07-26T17:54:13.717' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (46, CAST(N'2026-07-26T17:57:03.707' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (47, CAST(N'2026-07-26T17:59:49.840' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (48, CAST(N'2026-07-26T18:09:33.917' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (49, CAST(N'2026-07-26T18:10:20.800' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (50, CAST(N'2026-07-26T18:13:18.510' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (51, CAST(N'2026-07-26T18:15:09.330' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (52, CAST(N'2026-07-26T18:15:58.823' AS DateTime), 3, N'Barbie', 1, N'El usuario: Barbie cerró sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (53, CAST(N'2026-07-26T18:34:38.087' AS DateTime), 2, N'axel', 1, N'El usuario axel inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (54, CAST(N'2026-07-26T18:34:49.983' AS DateTime), 2, N'axel', 1, N'El usuario axel inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (55, CAST(N'2026-07-26T18:34:58.140' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (56, CAST(N'2026-07-26T18:37:31.900' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (57, CAST(N'2026-07-26T18:41:04.743' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (58, CAST(N'2026-07-26T18:42:30.333' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (59, CAST(N'2026-07-26T18:44:34.907' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (60, CAST(N'2026-07-26T18:45:39.060' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (61, CAST(N'2026-07-26T18:47:15.780' AS DateTime), 3, N'Barbie', 1, N'El usuario: Barbie cerró sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (62, CAST(N'2026-07-26T18:47:17.947' AS DateTime), 2, N'axel', 1, N'El usuario axel inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (63, CAST(N'2026-07-26T21:59:36.363' AS DateTime), 0, N'Sistema / Anónimo', 3, N'Intento de acceso bloqueado para el usuario ''axel'' debido a inconsistencia de datos en la BD.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (64, CAST(N'2026-07-26T21:59:39.980' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (65, CAST(N'2026-07-26T21:59:39.980' AS DateTime), 3, N'Barbie', 4, N'El Webmaster barbie ingresó al sistema con advertencia de base de datos alterada.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (66, CAST(N'2026-07-26T21:59:40.027' AS DateTime), 3, N'Barbie', 5, N'?? ALERTA DE SEGURIDAD: Se detectaron inconsistencias en los Dígitos Verificadores. Errores: [Tabla: PRODUCTO] ID 11: DVH incorrecto. BD: b03480c2ecfaa1655b190cc2fc7048f06d565962dcbdda3f64860d0fcded42c6 | Calculado: 43753a700c93b9e0e92183bd15cb0f76ea717f2f028b7ac954cc51fdc023af27')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (67, CAST(N'2026-07-26T21:59:42.540' AS DateTime), 3, N'Barbie', 4, N'El Webmaster Barbie ejecutó el recálculo masivo de Dígitos Verificadores.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (68, CAST(N'2026-07-26T22:04:30.033' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (69, CAST(N'2026-07-26T22:05:31.470' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (70, CAST(N'2026-07-26T22:06:13.020' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (71, CAST(N'2026-07-26T22:08:39.793' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (72, CAST(N'2026-07-26T22:12:08.360' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (73, CAST(N'2026-07-26T22:13:30.490' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (74, CAST(N'2026-07-26T22:14:27.793' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (75, CAST(N'2026-07-26T22:16:33.090' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (76, CAST(N'2026-07-26T22:16:45.177' AS DateTime), 3, N'Barbie', 3, N'El Webmaster Barbie generó un backup exitoso en: C:\BackupsPetShop\PetShop_Backup_20260726_221644.bak')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (77, CAST(N'2026-07-26T22:18:58.810' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (78, CAST(N'2026-07-26T22:20:06.423' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (79, CAST(N'2026-07-26T22:21:45.107' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (80, CAST(N'2026-07-26T22:22:11.753' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (81, CAST(N'2026-07-26T22:23:26.903' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
+INSERT [dbo].[BITACORA] ([Id], [FechaHora], [IdUsuario], [NombreUsuario], [Criticidad], [Descripcion]) VALUES (82, CAST(N'2026-07-26T22:26:07.700' AS DateTime), 3, N'Barbie', 1, N'El usuario Barbie inició sesión correctamente.')
 SET IDENTITY_INSERT [dbo].[BITACORA] OFF
 GO
 SET IDENTITY_INSERT [dbo].[DETALLE_PEDIDO] ON 
@@ -192,44 +282,65 @@ INSERT [dbo].[DETALLE_PEDIDO] ([Id], [IdPedido], [IdProducto], [Cantidad], [Subt
 INSERT [dbo].[DETALLE_PEDIDO] ([Id], [IdPedido], [IdProducto], [Cantidad], [Subtotal]) VALUES (6, 8, 3, 10, CAST(280000.00 AS Decimal(18, 2)))
 INSERT [dbo].[DETALLE_PEDIDO] ([Id], [IdPedido], [IdProducto], [Cantidad], [Subtotal]) VALUES (7, 8, 1, 1, CAST(15000.00 AS Decimal(18, 2)))
 INSERT [dbo].[DETALLE_PEDIDO] ([Id], [IdPedido], [IdProducto], [Cantidad], [Subtotal]) VALUES (8, 9, 8, 3, CAST(126000.00 AS Decimal(18, 2)))
+INSERT [dbo].[DETALLE_PEDIDO] ([Id], [IdPedido], [IdProducto], [Cantidad], [Subtotal]) VALUES (9, 10, 3, 1, CAST(30000.00 AS Decimal(18, 2)))
+INSERT [dbo].[DETALLE_PEDIDO] ([Id], [IdPedido], [IdProducto], [Cantidad], [Subtotal]) VALUES (10, 11, 2, 1, CAST(6000.00 AS Decimal(18, 2)))
+INSERT [dbo].[DETALLE_PEDIDO] ([Id], [IdPedido], [IdProducto], [Cantidad], [Subtotal]) VALUES (11, 12, 3, 1, CAST(30000.00 AS Decimal(18, 2)))
 SET IDENTITY_INSERT [dbo].[DETALLE_PEDIDO] OFF
+GO
+SET IDENTITY_INSERT [dbo].[DV_VERTICAL] ON 
+
+INSERT [dbo].[DV_VERTICAL] ([Id], [NombreTabla], [DigitoVertical]) VALUES (1, N'USUARIO', N'0')
+INSERT [dbo].[DV_VERTICAL] ([Id], [NombreTabla], [DigitoVertical]) VALUES (2, N'PRODUCTO', N'0')
+SET IDENTITY_INSERT [dbo].[DV_VERTICAL] OFF
 GO
 SET IDENTITY_INSERT [dbo].[PEDIDO] ON 
 
-INSERT [dbo].[PEDIDO] ([Id], [Fecha], [IdUsuario], [MontoTotal], [Estado]) VALUES (2, CAST(N'2026-07-20T23:08:52.827' AS DateTime), 2, CAST(84000.00 AS Decimal(18, 2)), N'Pendiente')
-INSERT [dbo].[PEDIDO] ([Id], [Fecha], [IdUsuario], [MontoTotal], [Estado]) VALUES (3, CAST(N'2026-07-20T23:10:15.557' AS DateTime), 2, CAST(84000.00 AS Decimal(18, 2)), N'Entregado')
-INSERT [dbo].[PEDIDO] ([Id], [Fecha], [IdUsuario], [MontoTotal], [Estado]) VALUES (4, CAST(N'2026-07-20T23:15:10.193' AS DateTime), 2, CAST(60000.00 AS Decimal(18, 2)), N'Aprobado')
-INSERT [dbo].[PEDIDO] ([Id], [Fecha], [IdUsuario], [MontoTotal], [Estado]) VALUES (5, CAST(N'2026-07-21T22:20:27.127' AS DateTime), 2, CAST(9000.00 AS Decimal(18, 2)), N'Aprobado')
-INSERT [dbo].[PEDIDO] ([Id], [Fecha], [IdUsuario], [MontoTotal], [Estado]) VALUES (6, CAST(N'2026-07-22T01:13:01.853' AS DateTime), 2, CAST(120000.00 AS Decimal(18, 2)), N'Aprobado')
-INSERT [dbo].[PEDIDO] ([Id], [Fecha], [IdUsuario], [MontoTotal], [Estado]) VALUES (7, CAST(N'2026-07-22T01:18:35.390' AS DateTime), 2, CAST(108000.00 AS Decimal(18, 2)), N'Aprobado')
-INSERT [dbo].[PEDIDO] ([Id], [Fecha], [IdUsuario], [MontoTotal], [Estado]) VALUES (8, CAST(N'2026-07-22T01:22:55.593' AS DateTime), 2, CAST(295000.00 AS Decimal(18, 2)), N'Enviado')
-INSERT [dbo].[PEDIDO] ([Id], [Fecha], [IdUsuario], [MontoTotal], [Estado]) VALUES (9, CAST(N'2026-07-22T01:31:48.250' AS DateTime), 2, CAST(126000.00 AS Decimal(18, 2)), N'Pendiente')
+INSERT [dbo].[PEDIDO] ([Id], [Fecha], [IdUsuario], [MontoTotal], [Estado], [DVH]) VALUES (2, CAST(N'2026-07-20T23:08:52.827' AS DateTime), 2, CAST(84000.00 AS Decimal(18, 2)), N'Pendiente', NULL)
+INSERT [dbo].[PEDIDO] ([Id], [Fecha], [IdUsuario], [MontoTotal], [Estado], [DVH]) VALUES (3, CAST(N'2026-07-20T23:10:15.557' AS DateTime), 2, CAST(84000.00 AS Decimal(18, 2)), N'Entregado', NULL)
+INSERT [dbo].[PEDIDO] ([Id], [Fecha], [IdUsuario], [MontoTotal], [Estado], [DVH]) VALUES (4, CAST(N'2026-07-20T23:15:10.193' AS DateTime), 2, CAST(60000.00 AS Decimal(18, 2)), N'Aprobado', NULL)
+INSERT [dbo].[PEDIDO] ([Id], [Fecha], [IdUsuario], [MontoTotal], [Estado], [DVH]) VALUES (5, CAST(N'2026-07-21T22:20:27.127' AS DateTime), 2, CAST(9000.00 AS Decimal(18, 2)), N'Aprobado', NULL)
+INSERT [dbo].[PEDIDO] ([Id], [Fecha], [IdUsuario], [MontoTotal], [Estado], [DVH]) VALUES (6, CAST(N'2026-07-22T01:13:01.853' AS DateTime), 2, CAST(120000.00 AS Decimal(18, 2)), N'Aprobado', NULL)
+INSERT [dbo].[PEDIDO] ([Id], [Fecha], [IdUsuario], [MontoTotal], [Estado], [DVH]) VALUES (7, CAST(N'2026-07-22T01:18:35.390' AS DateTime), 2, CAST(108000.00 AS Decimal(18, 2)), N'Aprobado', NULL)
+INSERT [dbo].[PEDIDO] ([Id], [Fecha], [IdUsuario], [MontoTotal], [Estado], [DVH]) VALUES (8, CAST(N'2026-07-22T01:22:55.593' AS DateTime), 2, CAST(295000.00 AS Decimal(18, 2)), N'Enviado', NULL)
+INSERT [dbo].[PEDIDO] ([Id], [Fecha], [IdUsuario], [MontoTotal], [Estado], [DVH]) VALUES (9, CAST(N'2026-07-22T01:31:48.250' AS DateTime), 2, CAST(126000.00 AS Decimal(18, 2)), N'Pendiente', NULL)
+INSERT [dbo].[PEDIDO] ([Id], [Fecha], [IdUsuario], [MontoTotal], [Estado], [DVH]) VALUES (10, CAST(N'2026-07-26T18:45:44.030' AS DateTime), 3, CAST(30000.00 AS Decimal(18, 2)), N'Pendiente', N'63c658aa215b9e595b03c0f2cfcbe0646c861a11b68dc86d474f3166efb79c16')
+INSERT [dbo].[PEDIDO] ([Id], [Fecha], [IdUsuario], [MontoTotal], [Estado], [DVH]) VALUES (11, CAST(N'2026-07-26T18:46:49.473' AS DateTime), 3, CAST(6000.00 AS Decimal(18, 2)), N'Pendiente', N'c7801b80be634de276215929747f9e82c3918c80d50ba20a3251d34e00bb00a4')
+INSERT [dbo].[PEDIDO] ([Id], [Fecha], [IdUsuario], [MontoTotal], [Estado], [DVH]) VALUES (12, CAST(N'2026-07-26T18:46:57.607' AS DateTime), 3, CAST(30000.00 AS Decimal(18, 2)), N'Pendiente', N'42dd4ed3082c8e899aedfa6d1a6f95aef388e7434c5e82da5bd0d29b0de7997c')
 SET IDENTITY_INSERT [dbo].[PEDIDO] OFF
 GO
 SET IDENTITY_INSERT [dbo].[PRODUCTO] ON 
 
-INSERT [dbo].[PRODUCTO] ([Id], [Nombre], [Tipo], [Precio], [StockActual], [StockMinimo]) VALUES (1, N'Antipulgas Pipeta x3', N'Salud', CAST(15000.00 AS Decimal(18, 2)), 9, 3)
-INSERT [dbo].[PRODUCTO] ([Id], [Nombre], [Tipo], [Precio], [StockActual], [StockMinimo]) VALUES (2, N'Juguete Pelota Squeaker', N'Juguete', CAST(6000.00 AS Decimal(18, 2)), 12, 5)
-INSERT [dbo].[PRODUCTO] ([Id], [Nombre], [Tipo], [Precio], [StockActual], [StockMinimo]) VALUES (3, N'Alimento Medicado Gatos 2kg', N'Salud', CAST(30000.00 AS Decimal(18, 2)), 8, 4)
-INSERT [dbo].[PRODUCTO] ([Id], [Nombre], [Tipo], [Precio], [StockActual], [StockMinimo]) VALUES (4, N'Snack Dental Perros 200g', N'Salud', CAST(4500.00 AS Decimal(18, 2)), 15, 5)
-INSERT [dbo].[PRODUCTO] ([Id], [Nombre], [Tipo], [Precio], [StockActual], [StockMinimo]) VALUES (5, N'Rascador para Gatos con Catnip', N'Juguete', CAST(18500.00 AS Decimal(18, 2)), 6, 2)
-INSERT [dbo].[PRODUCTO] ([Id], [Nombre], [Tipo], [Precio], [StockActual], [StockMinimo]) VALUES (6, N'Shampoo Antipulgas 250ml', N'Salud', CAST(9800.00 AS Decimal(18, 2)), 10, 4)
-INSERT [dbo].[PRODUCTO] ([Id], [Nombre], [Tipo], [Precio], [StockActual], [StockMinimo]) VALUES (7, N'Hueso de Goma Mordillo', N'Juguete', CAST(3500.00 AS Decimal(18, 2)), 25, 8)
-INSERT [dbo].[PRODUCTO] ([Id], [Nombre], [Tipo], [Precio], [StockActual], [StockMinimo]) VALUES (8, N'Alimento Cachorros 15kg', N'Salud', CAST(42000.00 AS Decimal(18, 2)), 10, 3)
-INSERT [dbo].[PRODUCTO] ([Id], [Nombre], [Tipo], [Precio], [StockActual], [StockMinimo]) VALUES (9, N'Prueba 1', N'Higiene', CAST(1000.00 AS Decimal(18, 2)), 2000, 100)
-INSERT [dbo].[PRODUCTO] ([Id], [Nombre], [Tipo], [Precio], [StockActual], [StockMinimo]) VALUES (10, N'Prueba 2', N'Snacks', CAST(1.00 AS Decimal(18, 2)), 20, 10)
+INSERT [dbo].[PRODUCTO] ([Id], [Nombre], [Tipo], [Precio], [StockActual], [StockMinimo], [DVH]) VALUES (1, N'Antipulgas Pipeta x3', N'Salud', CAST(15000.00 AS Decimal(18, 2)), 9, 3, N'c6596de7d28fb391399c0f25b0ceafc0e2388e5df46058fa58d6698982d26c10')
+INSERT [dbo].[PRODUCTO] ([Id], [Nombre], [Tipo], [Precio], [StockActual], [StockMinimo], [DVH]) VALUES (2, N'Juguete Pelota Squeaker', N'Juguete', CAST(6000.00 AS Decimal(18, 2)), 11, 5, N'2f578607f20a18da3e213e0fb0cd1960f9502ab36e70af8cddf9cac31a292075')
+INSERT [dbo].[PRODUCTO] ([Id], [Nombre], [Tipo], [Precio], [StockActual], [StockMinimo], [DVH]) VALUES (3, N'Alimento Medicado Gatos 2kg', N'Salud', CAST(30000.00 AS Decimal(18, 2)), 6, 4, N'a3edbe59923f0b7723aaa24b652e87148be5688dfd67838df83ccdc6f3c51138')
+INSERT [dbo].[PRODUCTO] ([Id], [Nombre], [Tipo], [Precio], [StockActual], [StockMinimo], [DVH]) VALUES (4, N'Snack Dental Perros 200g', N'Salud', CAST(4500.00 AS Decimal(18, 2)), 15, 5, N'6fb4319dcaab9fe6569fd4c083a2a2eabe9687b79e75419c1185a7e82186510c')
+INSERT [dbo].[PRODUCTO] ([Id], [Nombre], [Tipo], [Precio], [StockActual], [StockMinimo], [DVH]) VALUES (5, N'Rascador para Gatos con Catnip', N'Juguete', CAST(18500.00 AS Decimal(18, 2)), 6, 2, N'15cec41d065c07bcc34e548679a5f8daab82a085dc9ba95107d157974101585f')
+INSERT [dbo].[PRODUCTO] ([Id], [Nombre], [Tipo], [Precio], [StockActual], [StockMinimo], [DVH]) VALUES (6, N'Shampoo Antipulgas 250ml', N'Salud', CAST(9800.00 AS Decimal(18, 2)), 10, 4, N'2c6a0b2b675fb1cc5d0a1769ef59a0098663ddfcabe89d6ac6806fef810f08fe')
+INSERT [dbo].[PRODUCTO] ([Id], [Nombre], [Tipo], [Precio], [StockActual], [StockMinimo], [DVH]) VALUES (7, N'Hueso de Goma Mordillo', N'Juguete', CAST(3500.00 AS Decimal(18, 2)), 25, 8, N'7543e782b3393486589194f19561d00a685fb1a4ff914dcc49057baa28e25e52')
+INSERT [dbo].[PRODUCTO] ([Id], [Nombre], [Tipo], [Precio], [StockActual], [StockMinimo], [DVH]) VALUES (8, N'Alimento Cachorros 15kg', N'Salud', CAST(42000.00 AS Decimal(18, 2)), 10, 3, N'64dee36dff63a124c66780c0400191ad068e2886dc58df2c727eace1528ad162')
+INSERT [dbo].[PRODUCTO] ([Id], [Nombre], [Tipo], [Precio], [StockActual], [StockMinimo], [DVH]) VALUES (9, N'Prueba 1', N'Higiene', CAST(1000.00 AS Decimal(18, 2)), 2000, 100, N'ce1dd6e853692a7015e77d8ea9efb544168b3e5e5ec29435c279c70b4f2b9c8e')
+INSERT [dbo].[PRODUCTO] ([Id], [Nombre], [Tipo], [Precio], [StockActual], [StockMinimo], [DVH]) VALUES (10, N'Prueba 2', N'Snacks', CAST(1.00 AS Decimal(18, 2)), 20, 10, N'32fe80e76975b0520ec3b157afe687c7216da7aef3c60559f4285acf12eea39f')
+INSERT [dbo].[PRODUCTO] ([Id], [Nombre], [Tipo], [Precio], [StockActual], [StockMinimo], [DVH]) VALUES (11, N'Sal de baño Mascotas', N'Higiene', CAST(2000.00 AS Decimal(18, 2)), 20, 10, N'43753a700c93b9e0e92183bd15cb0f76ea717f2f028b7ac954cc51fdc023af27')
 SET IDENTITY_INSERT [dbo].[PRODUCTO] OFF
 GO
 SET IDENTITY_INSERT [dbo].[USUARIO] ON 
 
-INSERT [dbo].[USUARIO] ([Id], [Nombre], [Password], [Permiso], [Email], [Telefono]) VALUES (2, N'axel', N'03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', N'ADMIN', N'axel@gmail.com', N'1112341234')
-INSERT [dbo].[USUARIO] ([Id], [Nombre], [Password], [Permiso], [Email], [Telefono]) VALUES (3, N'Barbie', N'15065d771f7c8746bd30c125f9bb68a5ec7a84fccd7f0a82b38e760f39521c05', N'WEBMASTER', N'barbie@gmail.com', N'1120206565')
-INSERT [dbo].[USUARIO] ([Id], [Nombre], [Password], [Permiso], [Email], [Telefono]) VALUES (4, N'lauti', N'e2600074d8ececa82997e85cd77d8dfbe12383d33e80ce4d7f1384772920ab80', N'USUARIO', N'lauti@gmail.com', N'1198798765')
+INSERT [dbo].[USUARIO] ([Id], [Nombre], [Password], [Permiso], [Email], [Telefono], [DigitoVerificador]) VALUES (2, N'axel', N'03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', N'ADMIN', N'axel@gmail.com', N'1112341234', N'79438a1f210ddf6eff91c6cf95c583adcd84a857c465735d64582085a3ec0af1')
+INSERT [dbo].[USUARIO] ([Id], [Nombre], [Password], [Permiso], [Email], [Telefono], [DigitoVerificador]) VALUES (3, N'Barbie', N'15065d771f7c8746bd30c125f9bb68a5ec7a84fccd7f0a82b38e760f39521c05', N'WEBMASTER', N'barbie@gmail.com', N'1120206565', N'2c505ee0ed6d844d1efdbcdf4b4da0aae4c71c13084be152125ca6e71baafc96')
+INSERT [dbo].[USUARIO] ([Id], [Nombre], [Password], [Permiso], [Email], [Telefono], [DigitoVerificador]) VALUES (4, N'lauti', N'e2600074d8ececa82997e85cd77d8dfbe12383d33e80ce4d7f1384772920ab80', N'USUARIO', N'lauti@gmail.com', N'1198798765', N'8508ed5ef20ca016b44b678d3ac1b9d73c27134624d6e3aa7444bf140339057a')
 SET IDENTITY_INSERT [dbo].[USUARIO] OFF
 GO
 SET ANSI_PADDING ON
 GO
-/****** Object:  Index [UQ__USUARIO__75E3EFCF7C29269F]    Script Date: 23/07/2026 2:48:48 ******/
+/****** Object:  Index [UQ__DV_VERTI__5BCFB38891ECDD25]    Script Date: 26/07/2026 22:30:23 ******/
+ALTER TABLE [dbo].[DV_VERTICAL] ADD UNIQUE NONCLUSTERED 
+(
+	[NombreTabla] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [UQ__USUARIO__75E3EFCF7C29269F]    Script Date: 26/07/2026 22:30:23 ******/
 ALTER TABLE [dbo].[USUARIO] ADD UNIQUE NONCLUSTERED 
 (
 	[Nombre] ASC
@@ -250,23 +361,100 @@ GO
 ALTER TABLE [dbo].[PEDIDO]  WITH CHECK ADD FOREIGN KEY([IdUsuario])
 REFERENCES [dbo].[USUARIO] ([Id])
 GO
-/****** Object:  StoredProcedure [dbo].[sp_ActualizarEstadoPedido]    Script Date: 23/07/2026 2:48:48 ******/
+/****** Object:  StoredProcedure [dbo].[sp_ActualizarDVHGenerico]    Script Date: 26/07/2026 22:30:23 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
--- 1. Actualizar Estado
+CREATE   PROCEDURE [dbo].[sp_ActualizarDVHGenerico]
+    @Tabla NVARCHAR(50),
+    @Id INT,
+    @DVH NVARCHAR(MAX)
+AS
+BEGIN
+    DECLARE @sql NVARCHAR(MAX);
+
+    IF @Tabla = 'USUARIO'
+    BEGIN
+        SET @sql = 'UPDATE USUARIO SET DigitoVerificador = @DVH WHERE Id = @Id'; 
+    END
+    ELSE IF @Tabla = 'PRODUCTO'
+    BEGIN
+        SET @sql = 'UPDATE PRODUCTO SET DVH = @DVH WHERE Id = @Id'; 
+    END
+    ELSE IF @Tabla = 'PEDIDO'
+    BEGIN
+        SET @sql = 'UPDATE PEDIDO SET DVH = @DVH WHERE Id = @Id'; 
+    END
+
+    EXEC sp_executesql @sql, N'@DVH NVARCHAR(MAX), @Id INT', @DVH, @Id;
+END
+GO
+/****** Object:  StoredProcedure [dbo].[sp_ActualizarDVHUsuario]    Script Date: 26/07/2026 22:30:23 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+  CREATE   PROCEDURE [dbo].[sp_ActualizarDVHUsuario]
+    @Id INT,
+    @DVH VARCHAR(MAX) 
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    UPDATE [dbo].[USUARIO] -- 👈 Cambiado de USUARIOS a USUARIO (en singular)
+    SET [DigitoVerificador] = @DVH 
+    WHERE [Id] = @Id;
+END
+
+GO
+/****** Object:  StoredProcedure [dbo].[sp_ActualizarDVV]    Script Date: 26/07/2026 22:30:23 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- 2. Para actualizar el DVV en la tabla de control vertical
+CREATE PROCEDURE [dbo].[sp_ActualizarDVV]
+    @NombreTabla VARCHAR(100),
+    @DVV INT -- O el tipo de dato que maneje tu DVV
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Si ya existe el registro de la tabla, lo actualiza; si no, lo inserta
+    IF EXISTS (SELECT 1 FROM [dbo].[DV_VERTICAL] WHERE [NombreTabla] = @NombreTabla)
+    BEGIN
+        UPDATE [dbo].[DV_VERTICAL]
+        SET [DigitoVertical] = @DVV
+        WHERE [NombreTabla] = @NombreTabla;
+    END
+    ELSE
+    BEGIN
+        INSERT INTO [dbo].[DV_VERTICAL] ([NombreTabla], [DigitoVertical])
+        VALUES (@NombreTabla, @DVV);
+    END
+END
+
+GO
+/****** Object:  StoredProcedure [dbo].[sp_ActualizarEstadoPedido]    Script Date: 26/07/2026 22:30:23 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 CREATE PROCEDURE [dbo].[sp_ActualizarEstadoPedido]
     @IdPedido INT,
-    @Estado VARCHAR(50)
+    @Estado VARCHAR(50),
+    @DVH VARCHAR(MAX) -- <-- Agregado
 AS
 BEGIN
     UPDATE PEDIDO 
-    SET Estado = @Estado 
+    SET Estado = @Estado, 
+        DVH = @DVH       -- <-- Agregado para actualizar el dígito al cambiar el estado
     WHERE Id = @IdPedido;
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_EliminarUsuario]    Script Date: 23/07/2026 2:48:48 ******/
+/****** Object:  StoredProcedure [dbo].[sp_EliminarUsuario]    Script Date: 26/07/2026 22:30:23 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -280,7 +468,7 @@ BEGIN
     DELETE FROM USUARIO WHERE Id = @Id;
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_InsertarBitacora]    Script Date: 23/07/2026 2:48:48 ******/
+/****** Object:  StoredProcedure [dbo].[sp_InsertarBitacora]    Script Date: 26/07/2026 22:30:23 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -297,7 +485,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[sp_InsertarDetallePedido]    Script Date: 23/07/2026 2:48:48 ******/
+/****** Object:  StoredProcedure [dbo].[sp_InsertarDetallePedido]    Script Date: 26/07/2026 22:30:23 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -313,7 +501,7 @@ BEGIN
     VALUES (@IdPedido, @IdProducto, @Cantidad, @Subtotal);
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_InsertarPedido]    Script Date: 23/07/2026 2:48:48 ******/
+/****** Object:  StoredProcedure [dbo].[sp_InsertarPedido]    Script Date: 26/07/2026 22:30:23 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -322,33 +510,35 @@ CREATE PROCEDURE [dbo].[sp_InsertarPedido]
     @IdUsuario INT,
     @Fecha DATETIME,
     @Estado VARCHAR(50),
-    @MontoTotal DECIMAL(18,2)
+    @MontoTotal DECIMAL(18,2),
+    @DVH VARCHAR(MAX) -- <-- Agregado
 AS
 BEGIN
-    INSERT INTO PEDIDO (IdUsuario, Fecha, Estado, MontoTotal) 
-    VALUES (@IdUsuario, @Fecha, @Estado, @MontoTotal);
+    INSERT INTO PEDIDO (IdUsuario, Fecha, Estado, MontoTotal, DVH) -- <-- Agregado DVH
+    VALUES (@IdUsuario, @Fecha, @Estado, @MontoTotal, @DVH);     -- <-- Agregado @DVH
     
     SELECT SCOPE_IDENTITY();
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_InsertarProducto]    Script Date: 23/07/2026 2:48:48 ******/
+/****** Object:  StoredProcedure [dbo].[sp_InsertarProducto]    Script Date: 26/07/2026 22:30:23 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE   PROCEDURE [dbo].[sp_InsertarProducto]
+CREATE PROCEDURE [dbo].[sp_InsertarProducto]
     @Nombre VARCHAR(100),
     @Tipo VARCHAR(50),
     @Precio DECIMAL(18,2),
     @StockActual INT,
-    @StockMinimo INT
+    @StockMinimo INT,
+    @DVH VARCHAR(MAX) -- Recibimos el DVH calculado
 AS
 BEGIN
-    INSERT INTO PRODUCTO (Nombre, Tipo, Precio, StockActual, StockMinimo)
-    VALUES (@Nombre, @Tipo, @Precio, @StockActual, @StockMinimo);
+    INSERT INTO PRODUCTO (Nombre, Tipo, Precio, StockActual, StockMinimo, DVH)
+    VALUES (@Nombre, @Tipo, @Precio, @StockActual, @StockMinimo, @DVH);
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_InsertarUsuario]    Script Date: 23/07/2026 2:48:48 ******/
+/****** Object:  StoredProcedure [dbo].[sp_InsertarUsuario]    Script Date: 26/07/2026 22:30:23 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -367,7 +557,27 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[sp_ListarBitacora]    Script Date: 23/07/2026 2:48:48 ******/
+/****** Object:  StoredProcedure [dbo].[sp_ListarBackups]    Script Date: 26/07/2026 22:30:23 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[sp_ListarBackups]
+    @Db NVARCHAR(100)
+AS
+BEGIN
+    SELECT 
+        bmf.physical_device_name AS RutaArchivo,
+        bs.backup_finish_date    AS Fecha,
+        bs.database_name         AS NombreBaseDatos
+    FROM msdb.dbo.backupset bs
+    JOIN msdb.dbo.backupmediafamily bmf
+        ON bs.media_set_id = bmf.media_set_id
+    WHERE bs.database_name = @Db
+    ORDER BY bs.backup_finish_date DESC;
+END
+GO
+/****** Object:  StoredProcedure [dbo].[sp_ListarBitacora]    Script Date: 26/07/2026 22:30:23 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -382,7 +592,7 @@ BEGIN
     ORDER BY [FechaHora] DESC;
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_ListarProductos]    Script Date: 23/07/2026 2:48:48 ******/
+/****** Object:  StoredProcedure [dbo].[sp_ListarProductos]    Script Date: 26/07/2026 22:30:23 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -390,46 +600,48 @@ GO
 CREATE PROCEDURE [dbo].[sp_ListarProductos]
 AS
 BEGIN
-    SELECT Id, Nombre, Tipo, Precio, StockActual, StockMinimo
+    SELECT Id, Nombre, Tipo, Precio, StockActual, StockMinimo, DVH
     FROM PRODUCTO;
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_ListarUsuarios]    Script Date: 23/07/2026 2:48:48 ******/
+/****** Object:  StoredProcedure [dbo].[sp_ListarUsuarios]    Script Date: 26/07/2026 22:30:23 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
--- LISTAR TODOS LOS USUARIOS
-CREATE   PROCEDURE [dbo].[sp_ListarUsuarios]
+CREATE PROCEDURE [dbo].[sp_ListarUsuarios]
 AS
 BEGIN
-    SELECT [Id], [Nombre], [Password], [Permiso], [Email], [Telefono]
+    SELECT [Id], [Nombre], [Password], [Permiso], [Email], [Telefono], [DigitoVerificador] -- 👈 Agregado acá
     FROM [PETSHOP].[dbo].[USUARIO];
 END
-
 GO
-/****** Object:  StoredProcedure [dbo].[sp_ModificarProducto]    Script Date: 23/07/2026 2:48:48 ******/
+/****** Object:  StoredProcedure [dbo].[sp_ModificarProducto]    Script Date: 26/07/2026 22:30:23 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-  CREATE   PROCEDURE [dbo].[sp_ModificarProducto]
+CREATE PROCEDURE [dbo].[sp_ModificarProducto]
     @Id INT,
     @Nombre VARCHAR(100),
     @Tipo VARCHAR(50),
     @Precio DECIMAL(18,2),
-    @Stock INT
+    @StockActual INT,     -- <-- Cambiado a StockActual
+    @StockMinimo INT, 
+    @DVH VARCHAR(MAX) 
 AS
 BEGIN
     UPDATE PRODUCTO 
     SET Nombre = @Nombre,
         Tipo = @Tipo,
         Precio = @Precio,
-        StockActual = @Stock -- Ajusta el nombre de la columna si en tu tabla se llama solo Stock
+        StockActual = @StockActual, -- <-- Actualizado acá también
+        StockMinimo = @StockMinimo, -- (Asegurate de incluirlo por si se modifica o se pisa)
+        DVH = @DVH 
     WHERE Id = @Id;
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_ModificarUsuario]    Script Date: 23/07/2026 2:48:48 ******/
+/****** Object:  StoredProcedure [dbo].[sp_ModificarUsuario]    Script Date: 26/07/2026 22:30:23 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -455,7 +667,23 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[sp_ObtenerDetallePedidoPorId]    Script Date: 23/07/2026 2:48:48 ******/
+/****** Object:  StoredProcedure [dbo].[SP_Obtener_DVV]    Script Date: 26/07/2026 22:30:23 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[SP_Obtener_DVV]
+    @NombreTabla VARCHAR(100)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT [DigitoVertical] 
+    FROM [dbo].[DV_VERTICAL]
+    WHERE [NombreTabla] = @NombreTabla;
+END
+GO
+/****** Object:  StoredProcedure [dbo].[sp_ObtenerDetallePedidoPorId]    Script Date: 26/07/2026 22:30:23 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -472,24 +700,24 @@ BEGIN
     WHERE d.IdPedido = @IdPedido;
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_ObtenerPedidoPorId]    Script Date: 23/07/2026 2:48:48 ******/
+/****** Object:  StoredProcedure [dbo].[sp_ObtenerPedidoPorId]    Script Date: 26/07/2026 22:30:23 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE   PROCEDURE [dbo].[sp_ObtenerPedidoPorId]
+CREATE PROCEDURE [dbo].[sp_ObtenerPedidoPorId]
     @IdPedido INT
 AS
 BEGIN
     SELECT 
-        p.Id, p.Fecha, p.Estado, p.MontoTotal, p.IdUsuario,
+        p.Id, p.Fecha, p.Estado, p.MontoTotal, p.IdUsuario, p.DVH, -- <-- Agregado p.DVH acá
         u.Nombre AS NombreCliente, u.Email, u.Telefono
     FROM PEDIDO p
     INNER JOIN USUARIO u ON p.IdUsuario = u.Id
     WHERE p.Id = @IdPedido;
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_ObtenerProductoPorId]    Script Date: 23/07/2026 2:48:48 ******/
+/****** Object:  StoredProcedure [dbo].[sp_ObtenerProductoPorId]    Script Date: 26/07/2026 22:30:23 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -498,28 +726,28 @@ CREATE PROCEDURE [dbo].[sp_ObtenerProductoPorId]
     @Id INT
 AS
 BEGIN
-    SELECT Id, Nombre, Tipo, Precio, StockActual, StockMinimo
+    SELECT Id, Nombre, Tipo, Precio, StockActual, StockMinimo, DVH
     FROM PRODUCTO
     WHERE Id = @Id;
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_ObtenerTodosLosPedidos]    Script Date: 23/07/2026 2:48:48 ******/
+/****** Object:  StoredProcedure [dbo].[sp_ObtenerTodosLosPedidos]    Script Date: 26/07/2026 22:30:23 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE   PROCEDURE [dbo].[sp_ObtenerTodosLosPedidos]
+CREATE PROCEDURE [dbo].[sp_ObtenerTodosLosPedidos]
 AS
 BEGIN
     SELECT 
-        p.Id, p.Fecha, p.Estado, p.MontoTotal, p.IdUsuario,
+        p.Id, p.Fecha, p.Estado, p.MontoTotal, p.IdUsuario, p.DVH, -- <-- Agregado p.DVH acá
         u.Nombre AS NombreCliente, u.Email, u.Telefono
     FROM PEDIDO p
     INNER JOIN USUARIO u ON p.IdUsuario = u.Id
     ORDER BY p.Fecha DESC;
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_ObtenerUsuarioPorId]    Script Date: 23/07/2026 2:48:48 ******/
+/****** Object:  StoredProcedure [dbo].[sp_ObtenerUsuarioPorId]    Script Date: 26/07/2026 22:30:23 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -535,7 +763,22 @@ BEGIN
     WHERE [Id] = @Id;
 END
 GO
-/****** Object:  StoredProcedure [dbo].[sp_ValidarUsuario]    Script Date: 23/07/2026 2:48:48 ******/
+/****** Object:  StoredProcedure [dbo].[sp_RealizarBackupFull]    Script Date: 26/07/2026 22:30:23 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[sp_RealizarBackupFull]
+    @Path NVARCHAR(500)
+AS
+BEGIN
+    -- Quitamos la palabra COMPRESSION porque SQL Express no la soporta
+    BACKUP DATABASE [PETSHOP] 
+    TO DISK = @Path 
+    WITH INIT, CHECKSUM, NAME = N'Backup Manual Webmaster';
+END
+GO
+/****** Object:  StoredProcedure [dbo].[sp_ValidarUsuario]    Script Date: 26/07/2026 22:30:23 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -554,6 +797,7 @@ USE [master]
 GO
 ALTER DATABASE [PETSHOP] SET  READ_WRITE 
 GO
+
 
 
 

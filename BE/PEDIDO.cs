@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BE
 {
-    public class PEDIDO
+    public class PEDIDO : IVerificarDigitos
     {
         public PEDIDO()
         {
@@ -54,6 +54,19 @@ namespace BE
 			set { estado = value; }
 		}
 
+        private string dvh;
+        public string Dvh
+        {
+            get { return dvh; }
+            set { dvh = value; }
+        }
 
-	}
+        public string CalcularDVH()
+        {
+            string clienteId = Cliente != null ? Cliente.Id.ToString() : "";
+            string cadena = $"{Id}{Fecha:yyyyMMddHHmmss}{clienteId}{MontoTotal}{Estado}";
+
+            return SEGURIDAD.ENCRIPTADO.Hashear(cadena);
+        }
+    }
 }

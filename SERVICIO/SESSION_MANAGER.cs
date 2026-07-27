@@ -30,11 +30,7 @@ namespace SERVICIO
 
         public static bool Login(USUARIO usuario)
         {
-            string passwordHasheada = SEGURIDAD.ENCRIPTADO.Hashear(usuario.Password);
-            usuario.Password = passwordHasheada;
-
-            DAL.MP_USUARIO mapperUsuario = new DAL.MP_USUARIO();
-            BE.USUARIO usuarioValidado = mapperUsuario.ValidarUsuario(usuario);
+            BE.USUARIO usuarioValidado = ValidarUsuario(usuario);
 
             SERVICIO.BITACORA_BLL gestorBitacora = new BITACORA_BLL();
 
@@ -73,6 +69,19 @@ namespace SERVICIO
                 usuarioLogueado = (BE.USUARIO)HttpContext.Current.Session["Usuario"];
             }
             return usuarioLogueado;
+        }
+
+        public static BE.USUARIO ValidarUsuario(USUARIO usu)
+        {
+            // Nos aseguramos de que el hasheo ocurra de forma centralizada acá
+            string passwordHasheada = SEGURIDAD.ENCRIPTADO.Hashear(usu.Password);
+
+            USUARIO usuarioParaValidar = new USUARIO();
+            usuarioParaValidar.Nombre = usu.Nombre;
+            usuarioParaValidar.Password = passwordHasheada;
+
+            DAL.MP_USUARIO mapperUsuario = new DAL.MP_USUARIO();
+            return mapperUsuario.ValidarUsuario(usuarioParaValidar);
         }
 
     }

@@ -59,7 +59,12 @@ namespace BE
 			set { digitoVerificador = value; }
 		}
 
-        public string Dvh { get; set; }
+        private string dvh;
+        public string Dvh
+        {
+            get { return dvh; }
+            set { dvh = value; }
+        }
 
         public string CalcularDVH()
         {

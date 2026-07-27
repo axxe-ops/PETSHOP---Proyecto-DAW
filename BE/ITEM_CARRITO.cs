@@ -27,11 +27,11 @@ namespace BE
 			get { return subTotal; }
 			set { subTotal = value; }
 		}
-
-		public void CalcularSubTotal()
+        
+        public void CalcularSubTotal()
 		{
 			Subtotal = Cantidad * Producto.Precio;
 		}
 
-	}
+    }
 }

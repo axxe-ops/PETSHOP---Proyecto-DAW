@@ -11,6 +11,7 @@ namespace GUI
     public partial class frmGestionPedidos : System.Web.UI.Page
     {
         BLL.PEDIDO gestorPedido = new BLL.PEDIDO();
+        BITACORA_BLL gestorBitacora = new BITACORA_BLL();
         protected void Page_Load(object sender, EventArgs e)
         {
             var usuario = SESSION_MANAGER.ObtenerInstancia().ObtenerUsuario();
@@ -43,6 +44,9 @@ namespace GUI
 
                     // 3. Actualizamos en la base de datos
                     gestorPedido.ActualizarEstado(idPedido, nuevoEstado);
+
+                    var usuarioActual = SESSION_MANAGER.ObtenerInstancia().ObtenerUsuario();
+                    gestorBitacora.RegistrarBitacora("El administrador " + usuarioActual.Nombre + " actualizó el estado del pedido #" + idPedido + " a: " + nuevoEstado, 2);
 
                     lblMensaje.Text = "El estado del pedido #" + idPedido + " se actualizó a: " + nuevoEstado;
                     lblMensaje.ForeColor = System.Drawing.Color.Green;
