@@ -15,7 +15,7 @@ namespace GUI
         protected void Page_Load(object sender, EventArgs e)
         {
             var usuarioActual = SESSION_MANAGER.ObtenerInstancia().ObtenerUsuario();
-            if (usuarioActual == null || usuarioActual.Permiso != PERMISO.ADMIN)
+            if (usuarioActual == null || usuarioActual.Permiso != PERMISO.WEBMASTER)
             {
                 Response.Redirect("frmMenúPrincipal.aspx");
             }

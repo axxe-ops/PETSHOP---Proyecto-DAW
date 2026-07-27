@@ -68,7 +68,7 @@ namespace BE
 
         public string CalcularDVH()
         {
-            string datos = Id.ToString() + Nombre + Password + Permiso;
+            string datos = Id.ToString() + Nombre + Password + Permiso + Email + Telefono;
             return SEGURIDAD.ENCRIPTADO.Hashear(datos);
         }
     }

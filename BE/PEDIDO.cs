@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -64,7 +65,11 @@ namespace BE
         public string CalcularDVH()
         {
             string clienteId = Cliente != null ? Cliente.Id.ToString() : "";
-            string cadena = $"{Id}{Fecha:yyyyMMddHHmmss}{clienteId}{MontoTotal}{Estado}";
+
+            // Forzamos el formato numérico con punto para que coincida siempre
+            string montoStr = MontoTotal.ToString("0.00", CultureInfo.InvariantCulture);
+
+            string cadena = $"{Id}{Fecha:yyyyMMddHHmmss}{clienteId}{montoStr}{Estado}";
 
             return SEGURIDAD.ENCRIPTADO.Hashear(cadena);
         }

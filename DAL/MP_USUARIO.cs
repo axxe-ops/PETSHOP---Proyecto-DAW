@@ -32,6 +32,8 @@ namespace DAL
             parametros.Add(new SqlParameter("@Permiso", obj.Permiso));
             parametros.Add(new SqlParameter("@Email", obj.Email));
             parametros.Add(new SqlParameter("@Telefono", obj.Telefono));
+            obj.Dvh = obj.CalcularDVH();
+            parametros.Add(new SqlParameter("@DVH", obj.Dvh));
 
             acceso.Escribir("sp_InsertarUsuario", parametros);
         }

@@ -12,6 +12,7 @@ namespace SERVICIO
         DAL.MP_DIGITOSVERIFICADORES mapperDigitos = new DAL.MP_DIGITOSVERIFICADORES();
         DAL.MP_USUARIO mapperUsuario = new DAL.MP_USUARIO();
         DAL.MP_PRODUCTO mapperProducto = new DAL.MP_PRODUCTO();
+        DAL.MP_PEDIDO mapperPedido = new DAL.MP_PEDIDO();
 
         public List<string> VerificarIntegridadSistema()
         {
@@ -24,6 +25,10 @@ namespace SERVICIO
             //PRODUCTOS - verificar
             List<IVerificarDigitos> listaProductos = mapperProducto.Listar().Cast<IVerificarDigitos>().ToList();
             erroresTotales.AddRange(VerificarIntegridad(listaProductos, "PRODUCTO"));
+
+            //PEDIDOS - verificar
+            List<IVerificarDigitos> listaPedidos = mapperPedido.Listar().Cast<IVerificarDigitos>().ToList();
+            erroresTotales.AddRange(VerificarIntegridad(listaPedidos, "PEDIDO"));
 
             return erroresTotales;
         }
@@ -92,6 +97,23 @@ namespace SERVICIO
                 sumaDVHProductos += valorNumericoFila;
             }
             mapperDigitos.ActualizarDVV("PRODUCTO", sumaDVHProductos);
+
+
+            //PEDIDOS - Recalcular
+
+            List<IVerificarDigitos> listaPedidos = mapperPedido.Listar().Cast<IVerificarDigitos>().ToList();
+            int sumaDVHPedidos = 0;
+
+            foreach (var item in listaPedidos)
+            {
+                string nuevoDvh = item.CalcularDVH();
+                mapperDigitos.ActualizarDVH("PEDIDO", item.Id, nuevoDvh);
+
+                int valorNumericoFila = 0;
+                int.TryParse(nuevoDvh, out valorNumericoFila);
+                sumaDVHPedidos += valorNumericoFila;
+            }
+            mapperDigitos.ActualizarDVV("PEDIDO", sumaDVHPedidos);
         }
 
 

@@ -40,6 +40,8 @@ namespace GUI
                 lblEstadoBD.Text = "✔️ Base de Datos Integra: No se han detectado modificaciones externas.";
                 gvAlterados.DataSource = null;
                 gvAlterados.DataBind();
+
+                btnVolver.Visible = true;
             }
             else
             {
@@ -62,6 +64,8 @@ namespace GUI
 
                 gvAlterados.DataSource = listaErroresFormateada;
                 gvAlterados.DataBind();
+
+                btnVolver.Visible = false;
             }
         }
 

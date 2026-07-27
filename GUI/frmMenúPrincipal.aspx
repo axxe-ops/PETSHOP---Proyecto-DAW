@@ -22,24 +22,24 @@
                             <li class="menu-item"><a href="frmMenúPrincipal.aspx">Inicio</a></li>
             
                             <!-- 1. Carpeta de Gestión del Negocio -->
-                            <li class="menu-item dropdown">
+                            <asp:Panel ID="pnlCarpetaGestion" runat="server" CssClass="menu-item dropdown" TagName="li">
                                 <a href="javascript:void(0);" class="drop-btn">Gestión ▾</a>
                                 <div class="dropdown-content">
-                                    <asp:LinkButton ID="lnkGestionPedidos"    runat="server"  OnClick="btnIrGestionPedidos_Click">Gestionar Pedidos</asp:LinkButton>
-                                    <asp:LinkButton ID="lnkGestionProductos"    runat="server"  OnClick="btnIrGestionProductos_Click">Gestionar Productos</asp:LinkButton>
-                                    <asp:LinkButton ID="lnkGestionUsuarios"     runat="server"  OnClick="btnIrGestionUsuarios_Click">Gestionar Usuarios</asp:LinkButton>
+                                    <asp:LinkButton ID="lnkGestionPedidos" runat="server" OnClick="btnIrGestionPedidos_Click">Gestionar Pedidos</asp:LinkButton>
+                                    <asp:LinkButton ID="lnkGestionProductos" runat="server" OnClick="btnIrGestionProductos_Click">Gestionar Productos</asp:LinkButton>
+                                    <asp:LinkButton ID="lnkGestionUsuarios" runat="server" OnClick="btnIrGestionUsuarios_Click">Gestionar Usuarios</asp:LinkButton>
                                 </div>
-                            </li>
+                            </asp:Panel>
 
-                           <!-- 2. Carpeta de Seguridad y Sistema -->
-                            <li class="menu-item dropdown">
+                            <!-- 2. Carpeta de Seguridad y Sistema -->
+                            <asp:Panel ID="pnlCarpetaSistema" runat="server" CssClass="menu-item dropdown" TagName="li">
                                 <a href="javascript:void(0);" class="drop-btn">Sistema y Seguridad ▾</a>
                                 <div class="dropdown-content">
-                                    <asp:LinkButton ID="lnkBitacora"             runat="server"  OnClick="btnIrBitacora_Click">Bitácora</asp:LinkButton>
+                                    <asp:LinkButton ID="lnkBitacora" runat="server" OnClick="btnIrBitacora_Click">Bitácora</asp:LinkButton>
                                     <asp:LinkButton ID="lnkDigitosVerificadores" runat="server" OnClick="btnIrDigitosVerificadores_Click">Dígitos Verificadores</asp:LinkButton>
-                                    <asp:LinkButton ID="lnkBackup"               runat="server"  OnClick="btnIrBackup_Click">Backup y Restauración</asp:LinkButton>
+                                    <asp:LinkButton ID="lnkBackup" runat="server" OnClick="btnIrBackup_Click">Backup y Restauración</asp:LinkButton>
                                 </div>
-                            </li>
+                            </asp:Panel>
                         </ul>
                     </nav>
                 </asp:Panel>

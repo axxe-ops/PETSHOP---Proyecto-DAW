@@ -1,4 +1,5 @@
-﻿using SERVICIO;
+﻿using BE;
+using SERVICIO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace GUI
         protected void Page_Load(object sender, EventArgs e)
         {
             var usuario = SESSION_MANAGER.ObtenerInstancia().ObtenerUsuario();
-            if (usuario == null || usuario.Permiso != "ADMIN")
+            if (usuario == null || (usuario.Permiso != PERMISO.ADMIN && usuario.Permiso != PERMISO.WEBMASTER))
             {
                 Response.Redirect("frmMenúPrincipal.aspx");
             }
@@ -27,6 +28,16 @@ namespace GUI
 
         protected void gvPedidos_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            //validación
+            var usuarioActualInstancia = SESSION_MANAGER.ObtenerInstancia().ObtenerUsuario();
+            if (usuarioActualInstancia != null && usuarioActualInstancia.Permiso == PERMISO.WEBMASTER && e.CommandName == "ActualizarEstado")
+            {
+                lblMensaje.Text = "Acción denegada: El perfil WebMaster es de solo lectura.";
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+                return;
+            }
+
+
             int idPedido = Convert.ToInt32(e.CommandArgument);            
 
             if (e.CommandName == "ActualizarEstado")
@@ -77,6 +88,23 @@ namespace GUI
             List<BE.PEDIDO> lista = gestorPedido.Listar();
             gvPedidos.DataSource = lista;
             gvPedidos.DataBind();
+
+            var usuarioActual = SESSION_MANAGER.ObtenerInstancia().ObtenerUsuario();
+            if (usuarioActual != null && usuarioActual.Permiso == PERMISO.WEBMASTER)
+            {
+                foreach (GridViewRow row in gvPedidos.Rows)
+                {
+                    // Buscamos el botón de actualizar y el desplegable de estados en cada fila de la grilla
+                    Button btnActualizar = (Button)row.FindControl("btnActualizarEstado"); // Asegurate que tu botón en el .aspx tenga este ID
+                    DropDownList ddlEstado = (DropDownList)row.FindControl("ddlEstado");
+
+                    if (btnActualizar != null) btnActualizar.Visible = false; // Ocultamos el botón de guardar cambios
+                    if (ddlEstado != null) ddlEstado.Enabled = false;       // Deshabilitamos el combo para que no pueda cambiar opciones
+                }
+
+                lblMensaje.Text = "Modo Visualización (WebMaster): No cuenta con permisos para modificar pedidos.";
+                lblMensaje.ForeColor = System.Drawing.Color.Blue;
+            }
         }
 
         protected void btnVolver_Click(object sender, EventArgs e)

@@ -1,4 +1,5 @@
-﻿using SERVICIO;
+﻿using BE;
+using SERVICIO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,6 @@ namespace GUI
         {
             BE.USUARIO usuarioActual = SESSION_MANAGER.ObtenerInstancia().ObtenerUsuario();
 
-            // Verificamos si hay sesión (para proteger la página)
             if (usuarioActual == null)
             {
                 Response.Redirect("frmLogin.aspx");
@@ -24,6 +24,23 @@ namespace GUI
             if (!IsPostBack)
             {
                 lblUsuarioLogueado.Text = usuarioActual.Nombre;
+
+                if (usuarioActual.Permiso == PERMISO.USUARIO)
+                {
+                    pnlCarpetaGestion.Visible = false;
+                    pnlCarpetaSistema.Visible = false;
+                }
+                else if (usuarioActual.Permiso == PERMISO.ADMIN)
+                {
+                    pnlCarpetaGestion.Visible = true;
+                    pnlCarpetaSistema.Visible = false;
+                }
+                else if (usuarioActual.Permiso == PERMISO.WEBMASTER)
+                {
+                    pnlCarpetaGestion.Visible = true;
+                    pnlCarpetaSistema.Visible = true;
+                }
+
                 CargarCatalogo();
             }
         }

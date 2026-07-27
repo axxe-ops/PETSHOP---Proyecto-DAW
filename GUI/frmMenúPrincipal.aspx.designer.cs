@@ -33,6 +33,15 @@ namespace GUI
         protected global::System.Web.UI.WebControls.Panel pnlMenuAdmin;
 
         /// <summary>
+        /// Control pnlCarpetaGestion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlCarpetaGestion;
+
+        /// <summary>
         /// Control lnkGestionPedidos.
         /// </summary>
         /// <remarks>
@@ -58,6 +67,15 @@ namespace GUI
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lnkGestionUsuarios;
+
+        /// <summary>
+        /// Control pnlCarpetaSistema.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlCarpetaSistema;
 
         /// <summary>
         /// Control lnkBitacora.

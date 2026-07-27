@@ -120,7 +120,7 @@ namespace DAL
                 pedido.Fecha = Convert.ToDateTime(row["Fecha"]);
                 pedido.Estado = row["Estado"].ToString();
                 pedido.MontoTotal = Convert.ToDecimal(row["MontoTotal"]);
-                pedido.Dvh = row["DVH"].ToString();
+                pedido.Dvh = row["DVH"] != DBNull.Value ? row["DVH"].ToString() : string.Empty;
 
                 pedido.Cliente = new USUARIO();
                 pedido.Cliente.Id = Convert.ToInt32(row["IdUsuario"]);

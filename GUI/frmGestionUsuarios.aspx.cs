@@ -16,7 +16,7 @@ namespace GUI
         protected void Page_Load(object sender, EventArgs e)
         {
             var usuarioActual = SESSION_MANAGER.ObtenerInstancia().ObtenerUsuario();
-            if (usuarioActual == null || usuarioActual.Permiso != "ADMIN")
+            if (usuarioActual == null || (usuarioActual.Permiso != PERMISO.ADMIN && usuarioActual.Permiso != PERMISO.WEBMASTER))
             {
                 Response.Redirect("frmMenúPrincipal.aspx");
             }
@@ -29,17 +29,56 @@ namespace GUI
                 ddlPermiso.Items.Add(new ListItem("Administrador", PERMISO.ADMIN));
                 ddlPermiso.Items.Add(new ListItem("Webmaster", PERMISO.WEBMASTER));
                 ddlPermiso.Items.Add(new ListItem("Usuario", PERMISO.USUARIO));
+
+                if (usuarioActual.Permiso == PERMISO.WEBMASTER)
+                {
+                    btnModoNuevo.Visible = false;
+                    btnGuardarCambios.Visible = false;
+                    btnRegistrarNuevo.Visible = false;
+                    btnCancelarEdicion.Visible = false;
+
+                    txtNombre.Enabled = false;
+                    txtPassword.Enabled = false;
+                    txtEmail.Enabled = false;
+                    txtTelefono.Enabled = false;
+                    ddlPermiso.Enabled = false;
+
+                    lblMensaje.Text = "Modo Visualización (WebMaster): Solo lectura.";
+                    lblMensaje.ForeColor = System.Drawing.Color.Blue;
+                }
             }
         }
 
         private void CargarGrillaUsuarios()
         {
-            gvUsuarios.DataSource = gestorUsuario.Listar(); //
+            gvUsuarios.DataSource = gestorUsuario.Listar(); 
             gvUsuarios.DataBind();
+
+            var usuarioActual = SESSION_MANAGER.ObtenerInstancia().ObtenerUsuario();
+            if (usuarioActual != null && usuarioActual.Permiso == PERMISO.WEBMASTER)
+            {
+                foreach (GridViewRow row in gvUsuarios.Rows)
+                {
+                    Button btnEliminar = (Button)row.FindControl("btnEliminar");
+                    if (btnEliminar != null) btnEliminar.Visible = false;
+                }
+            }
         }
 
         protected void gvUsuarios_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            var usuarioActual = SESSION_MANAGER.ObtenerInstancia().ObtenerUsuario();
+            
+            if (usuarioActual != null && usuarioActual.Permiso == PERMISO.WEBMASTER)
+            {
+                if (e.CommandName == "Seleccionar" || e.CommandName == "Eliminar")
+                {
+                    lblMensaje.Text = "Acción denegada: El perfil WebMaster se encuentra en modo solo lectura.";
+                    lblMensaje.ForeColor = System.Drawing.Color.Red;
+                    return;
+                }
+            }
+
             int idUsuario = Convert.ToInt32(e.CommandArgument);
 
             if (e.CommandName == "Seleccionar")

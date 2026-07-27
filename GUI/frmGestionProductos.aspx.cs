@@ -1,4 +1,5 @@
-﻿using SERVICIO;
+﻿using BE;
+using SERVICIO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace GUI
         protected void Page_Load(object sender, EventArgs e)
         {
             var usuario = SESSION_MANAGER.ObtenerInstancia().ObtenerUsuario();
-            if (usuario == null || usuario.Permiso != "ADMIN")
+            if(usuario == null || (usuario.Permiso != PERMISO.ADMIN && usuario.Permiso != PERMISO.WEBMASTER))
             {
                 Response.Redirect("frmMenúPrincipal.aspx");
             }
@@ -24,6 +25,18 @@ namespace GUI
             {
                 CargarTiposEnum();
                 CargarGrillaProductos();
+
+                //Si es WebMaster, ocultamos los botones de creación/modificación de la interfaz
+                if (usuario.Permiso == PERMISO.WEBMASTER)
+                {
+                    btnModoNuevo.Visible = false;           // Botón para abrir el formulario de nuevo producto
+                    btnGuardarCambios.Visible = false;      // Botón para actualizar
+                    btnRegistrarNuevo.Visible = false;      // Botón para dar de alta
+                    btnCancelarEdicion.Visible = false;
+
+                    lblMensaje.Text = "Modo Visualización (WebMaster): Solo lectura.";
+                    lblMensaje.ForeColor = System.Drawing.Color.Blue;
+                }
             }
         }
 
@@ -74,6 +87,14 @@ namespace GUI
 
         protected void gvProductos_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            var usuarioActual = SESSION_MANAGER.ObtenerInstancia().ObtenerUsuario();
+            if (usuarioActual != null && usuarioActual.Permiso == PERMISO.WEBMASTER && e.CommandName == "Seleccionar")
+            {
+                lblMensaje.Text = "Acción denegada: El perfil WebMaster no puede editar productos.";
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+                return;
+            }
+
             if (e.CommandName == "Seleccionar")
             {
                 int idProducto = Convert.ToInt32(e.CommandArgument);
